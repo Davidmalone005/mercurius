@@ -121,7 +121,9 @@ const Checkout = ({}) => {
         setItems(itemsArr);
       }
 
-      const allAddresses = fetch("https://mercurius-backend.up.railway.app/api/addresses/")
+      const allAddresses = fetch(
+        "https://mercurius-backend.up.railway.app/api/addresses/"
+      )
         .then((res) => res.json())
         .then((res) => {
           if (res.length > 0) {
@@ -156,7 +158,7 @@ const Checkout = ({}) => {
           }
         });
     }
-  }, []);
+  }, [setShipping, setUserInfo, userStatus]);
 
   useEffect(() => {
     if (typeof window !== "undefined" || typeof window !== null) {
@@ -221,7 +223,6 @@ const Checkout = ({}) => {
     <section className="w-[85%] mx-auto max-w-screen-xl">
       <Head>
         <title>Mercurius | Checkout | Best Thrift Store in Nigeria</title>
-        
       </Head>
 
       {userStatus && userStatus.error ? (
@@ -435,7 +436,7 @@ const Checkout = ({}) => {
                         <p className=" mb-5">
                           You can buy as many items as you want, pay for them,
                           keep them in our Storehouse and shipped all of them at
-                          once whenever you're ready.
+                          once whenever you&apos;re ready.
                         </p>
                         <p className="">
                           <span className="text-red-600 font-bold mr-3">
@@ -451,8 +452,8 @@ const Checkout = ({}) => {
                               WILL be charged ₦100
                             </span>
                             per item every day until you request for your
-                            shipment. And also your COUPONS are not applicable to
-                            items saved to our Storehouse.
+                            shipment. And also your COUPONS are not applicable
+                            to items saved to our Storehouse.
                           </span>
                         </p>
 

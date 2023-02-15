@@ -112,6 +112,8 @@ const Cart = () => {
     }
   };
 
+  console.log(totalCartAmt)
+
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
       <Head>
@@ -268,6 +270,7 @@ const Cart = () => {
                 <section className="border-t-2 border-b-2 border-black mt-2 md:mt-6 py-2 md:py-4 flex items-center justify-between">
                   <span>Total</span>
                   <span className="font-semibold">
+                    {/* There is a bug with this conditionals below.  */}
                     ₦
                     {numbersWithCommas(
                       totalAmountAfterCoupons
