@@ -1,3 +1,5 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -25,7 +27,7 @@ module.exports = {
       },
       fontFamily: {
         dalek: ["Dalek", "sans-serif"],
-        poppins: ["Poppins", "sans-serif"],
+        poppins: ["var(--poppins-font)", ...fontFamily.sans],
       },
       backgroundImage: {
         about_bg1: "url('../public/assets/page-imgs/about1.png')",
@@ -39,4 +41,5 @@ module.exports = {
     require("tw-elements/dist/plugin"),
   ],
 };
+
 
