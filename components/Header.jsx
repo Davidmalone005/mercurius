@@ -76,7 +76,7 @@ const Header = () => {
 
               {categoryData.subcategories && (
                 <section>
-                  <section className="bg-white p-4 space-y-2 rounded-md absolute top-[55px] left-[7%] hidden group-hover:flex group-hover:items-center group-hover:justify-center border-b-2 border-b-primary duration-500 z-50 w-[85%] overflow-hidden">
+                  <section className="bg-white p-4 space-y-2 rounded-md absolute top-[83px] left-[7%] hidden group-hover:flex group-hover:items-center group-hover:justify-center border-b-2 border-b-primary duration-500 z-10 w-[85%] overflow-hidden">
                     <section className="flex items-center justify-around space-x-5">
                       <section className="w-[35%] h-[250px] relative">
                         <section className="bg-black absolute top-0 left-0 w-full h-[100%] opacity-60"></section>
