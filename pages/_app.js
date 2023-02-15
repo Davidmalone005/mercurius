@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             --poppins-font: ${poppins.style.fontFamily};
           }
         `}</style>
-        ;
+        
         <Layout>
           <Component {...pageProps} />
         </Layout>
