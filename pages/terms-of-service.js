@@ -18,14 +18,15 @@ const tos = () => {
             purchase and sale, which must be agreed to by the Other Party. Users
             are not permitted to copy, distribute, download, modify, reproduce,
             republish, post, print, transmit, upload and store any material
-            and/or extracts from the Website without the Company's permission.
+            and/or extracts from the Website without the Company&apos;s
+            permission.
           </p>
           <p className="my-3 text-md px-6 text-justify">
             In addition, any information collected from customers through polls,
             surveys, cookies, session tracking and other sources is used
             internally and solely for the purpose of personalizing customer
-            service, developing ways to improve the visitor's experience, and to
-            prevent and detect fraud.
+            service, developing ways to improve the visitor&apos;s experience,
+            and to prevent and detect fraud.
           </p>
         </section>
       </section>

@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { signOut } from "next-auth/react";
 
-const thankyou = () => {
+const Thankyou = () => {
   const [userStatus, setUserStatus] = useState(null);
 
   const {
@@ -51,7 +51,7 @@ const thankyou = () => {
           });
       }
     }
-  }, []);
+  }, [setUserInfo, userStatus]);
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
@@ -74,4 +74,4 @@ const thankyou = () => {
   );
 };
 
-export default thankyou;
+export default Thankyou;

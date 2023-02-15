@@ -21,7 +21,7 @@ const about = () => {
             ABOUT US
           </h1>
           <p className="my-3 text-md px-6 text-center">
-            We know what's like out there, we just want to help out
+            We know what&apos;s like out there, we just want to help out
           </p>
         </section>
       </section>

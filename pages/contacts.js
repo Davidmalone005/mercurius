@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 
-const contact = () => {
+const Contact = () => {
   const router = useRouter();
 
   const [messageStatus, setMessageStatus] = useState(null);
@@ -29,7 +29,7 @@ const contact = () => {
         body: JSON.stringify(data),
       };
 
-      await fetch("http://localhost:8000/api/contact/", options)
+      await fetch("https://mercurius-backend.up.railway/api/contact/", options)
         .then((res) => res.json())
         .then((resData) => {
           if (resData.email) {
@@ -61,7 +61,7 @@ const contact = () => {
             <h1 className="text-2xl uppercase font-dalek mb-8">Contacts</h1>
 
             <p className="my-3 text-md px-6 text-justify">
-              We know what it's like out there, we just want to help out...
+              We know what it&apos;s like out there, we just want to help out...
             </p>
           </section>
           <section className="grid place-items-center w-[75%] mx-auto md:w-[48%] bg-primary rounded-md p-6">
@@ -211,4 +211,4 @@ const contact = () => {
   );
 };
 
-export default contact;
+export default Contact;

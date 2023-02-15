@@ -79,7 +79,7 @@ const StorehouseTimer = ({ billing_starts }) => {
       }
 
     return () => clearInterval(intervalId);
-  }, [time,]);
+  }, []);
 
   return (
     <section className="ml-4 font-dalek font-bold text-lg">

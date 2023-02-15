@@ -41,7 +41,7 @@ const privacy_policy = () => {
             also collect this information, and Google Analytics is used to
             collect information about how visitors use the site. Cookies are
             used to obtain information about what product and information
-            interest visitors and to protect the user's information.
+            interest visitors and to protect the user&apos;s information.
           </p>
         </section>
       </section>
