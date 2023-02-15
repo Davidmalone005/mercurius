@@ -9,6 +9,7 @@ import { useAppContext } from "../context/AppContext";
 import Avatar from "./Avatar";
 import { signOut } from "next-auth/react";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 const Header = () => {
   const {
@@ -40,7 +41,7 @@ const Header = () => {
         setUserStatus(JSON.parse(window.localStorage.getItem("UserData")));
       }
     }
-  }, []);
+  }, [setUserInfo]);
 
   const handleLogOut = () => {
     window.localStorage.removeItem("UserData");
@@ -79,11 +80,11 @@ const Header = () => {
                     <section className="flex items-center justify-around space-x-5">
                       <section className="w-[35%] h-[250px] relative">
                         <section className="bg-black absolute top-0 left-0 w-full h-[100%] opacity-60"></section>
-                        <img
+                        <Image
                           src={bgUrl(categoryData.category_image)}
                           alt={bgUrl(categoryData.name)}
                           width={0}
-                          height={0}
+                          height={250}
                           className="w-[100%] h-[250px] max-h-[250px] object-fill"
                         />
                         <section className="absolute top-0 left-0 w-full h-[100%] grid place-items-center">

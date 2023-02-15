@@ -36,7 +36,7 @@ const Avatar = ({ src, alt, isHeader }) => {
 
       setUserInitials(userInitialsOld);
     }
-  }, []);
+  }, [userInfo]);
 
   return (
     <section className={`flex items-center justify-center`}>

@@ -7,7 +7,7 @@ import Footer from "./Footer";
 const Layout = ({ children }) => {
   return (
     <section className="layout font-poppins dark:bg-white">
-      <header className="header bg-white shadow-lg overflow-x-hidden z-50">
+      <header className="header bg-white shadow-lg overflow-x-hidden z-10">
         <Header />
       </header>
 

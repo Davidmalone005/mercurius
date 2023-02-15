@@ -58,28 +58,28 @@ const StorehouseTimer = ({ billing_starts }) => {
       updateRemainingTime(time);
     }, 1000);
 
-    //   if (time < 0) {
-    //     const options = {
-    //       method: "POST",
-    //       headers: { "Content-type": "application/json" },
-    //     };
+      if (time < 0) {
+        const options = {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        };
 
-    //     fetch(
-    //       "https://mercurius-api-production.up.railway.app/api/inventory/f/disable/",
-    //       options
-    //     )
-    //       .then((res) => res.json())
-    //       .then((resData) => {});
+        fetch(
+          "https://mercurius-backend.up.railway.app/api/inventory/f/disable/",
+          options
+        )
+          .then((res) => res.json())
+          .then((resData) => {});
 
-    //     toast.error("Flash sales have ended!");
+        toast.error("Flash sales have ended!");
 
-    //     setTimeout(() => {
-    //       router.reload(window.location.pathname);
-    //     }, 1000);
-    //   }
+        setTimeout(() => {
+          router.reload(window.location.pathname);
+        }, 1000);
+      }
 
     return () => clearInterval(intervalId);
-  }, [time]);
+  }, [time,]);
 
   return (
     <section className="ml-4 font-dalek font-bold text-lg">

@@ -19,7 +19,7 @@ const Footer = () => {
         </Link>
 
         <p className="text-md">
-          Nigeria's No.1 thrift and luxury e-commerce <br />
+          Nigeria&apos;s No.1 thrift and luxury e-commerce <br />
           website that caters for all your fashion needs. <br />
           Offers high-quality fashion items and tech gadgets <br />
           at great discount and coupons.
