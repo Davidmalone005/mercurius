@@ -61,7 +61,7 @@ const Footer = () => {
           </li>
           <li className="my-1">
             <section className="cursor-pointer hover:text-primary">
-              <Link href="mailto:sales@mercurius.com">sales@mercurius.ng</Link>
+              <Link href="mailto:sales@mercurius.ng">sales@mercurius.ng</Link>
             </section>
           </li>
         </ul>
