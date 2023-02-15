@@ -33,6 +33,8 @@ const Cart = () => {
 
   const [couponAlert, setCouponAlert] = useState(null);
   const [totalAmountAfterCoupons, setTotalAmountAfterCoupons] = useState(null);
+  const [totalAmountBeforeCoupons, setTotalAmountBeforeCoupons] =
+    useState(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" || typeof window !== null) {
@@ -41,6 +43,11 @@ const Cart = () => {
           JSON.parse(window.localStorage.getItem("TotalAmountAfterCoupons"))
         );
         setCouponAlert(window.localStorage.getItem("couponAlert"));
+      }
+      if (window.localStorage.getItem("TotalAmountBeforeCoupons")) {
+        setTotalAmountBeforeCoupons(
+          JSON.parse(window.localStorage.getItem("TotalAmountBeforeCoupons"))
+        );
       }
     }
   }, []);
@@ -99,6 +106,10 @@ const Cart = () => {
                     "TotalAmountAfterCoupons",
                     Math.round(poTotal)
                   );
+                  window.localStorage.setItem(
+                    "TotalAmountBeforeCoupons",
+                    Math.round(totalCartAmt)
+                  );
                   window.localStorage.setItem("couponAlert", `Coupon applied!`);
                   toast.success(`Coupon applied!`);
                   router.reload(window.location.pathname);
@@ -112,7 +123,21 @@ const Cart = () => {
     }
   };
 
-  console.log(totalCartAmt)
+  useEffect(() => {
+    if (
+      totalAmountBeforeCoupons &&
+      totalAmountAfterCoupons &&
+      totalCartAmt !== 0
+    ) {
+      if (totalAmountBeforeCoupons !== totalCartAmt) {
+        alert("Order has changed after coupon was applied!");
+      }
+    }
+  }, [totalAmountBeforeCoupons, totalAmountAfterCoupons, totalCartAmt]);
+
+  console.log(totalAmountBeforeCoupons);
+  console.log(totalAmountAfterCoupons);
+  console.log(totalCartAmt);
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
@@ -270,8 +295,7 @@ const Cart = () => {
                 <section className="border-t-2 border-b-2 border-black mt-2 md:mt-6 py-2 md:py-4 flex items-center justify-between">
                   <span>Total</span>
                   <span className="font-semibold">
-                    {/* There is a bug with this conditionals below.  */}
-                    ₦
+                    {/* There is a bug with this conditionals below.  */}₦
                     {numbersWithCommas(
                       totalAmountAfterCoupons
                         ? totalAmountAfterCoupons
