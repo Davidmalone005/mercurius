@@ -55,7 +55,7 @@ const Contact = () => {
         <title>Mercurius | Contacts | Best Thrift Store in Nigeria</title>
       </Head>
 
-      <section className="w-full min-w-[320px] grid place-items-center overflow-hidden z-20 ">
+      <section className="w-full min-w-[320px] grid place-items-center overflow-hidden z-10 ">
         <section className="bg-black text-white dark:text-white flex flex-col md:flex-row flex-wrap items-center justify-between space-y-6 md:space-y-0 py-10 px-10 w-full min-w-[320px]">
           <section className="px-8 py-3 md:px-16 md:py-6 md3:px-16 md3:py-6 lg:px-28 lg:py-12 w-[90%] mx-auto md:w-[48%]">
             <h1 className="text-2xl uppercase font-dalek mb-8">Contacts</h1>
