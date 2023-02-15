@@ -134,7 +134,7 @@ export const AppProvider = ({ children }) => {
           }
         });
     }
-  }, [shipping]);
+  }, [shipping, appState.cart.length, salesTax, totalPrice]);
 
   // CART FUNCTIONS
   const addToCart = (item) => {
@@ -217,7 +217,7 @@ export const AppProvider = ({ children }) => {
     return () => {
       setFlashsaleProducts(flashsaleProductsFilter);
     };
-  }, []);
+  }, [products]);
 
   const openSidebar = () => {
     setIsSidebarOpen(true);

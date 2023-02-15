@@ -67,7 +67,7 @@ export default function Home({
         setFlashsaleTimerSwitch(true);
       }
     }
-  }, []);
+  }, [flashsale_products, flashsale_timer, productTypes, products, setFlashsaleProducts, setFlashsaleTimer, setFlashsaleTimerSwitch, setProductTypes, setProducts]);
 
   return (
     <section className="">
