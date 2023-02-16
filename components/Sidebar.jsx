@@ -4,13 +4,12 @@ import { signOut } from "next-auth/react";
 import { useAppContext } from "../context/AppContext";
 
 const Sidebar = ({ links, asideOpen }) => {
-  const { userInfo, setUserInfo, setUserStatus } = useAppContext();
+  const { userInfo, setUserInfo } = useAppContext();
 
   const handleSignOut = () => {
     window.localStorage.removeItem("UserData");
     setUserInfo(null);
-    setUserStatus(null);
-    signOut({ callbackUrl: "/register" });
+    signOut({ callbackUrl: "/login" });
   };
 
   return (

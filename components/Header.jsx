@@ -51,9 +51,9 @@ const Header = () => {
   };
 
   return (
-    <section className="w-[85%] max-w-screen-xl mx-auto flex items-center justify-between py-6 z-50">
+    <section className="w-[85%] max-w-screen-xl mx-auto flex items-center justify-between py-6 z-30">
       <Link href="/">
-        <h1 className="z-50 font-dalek text-xl sm:text-2xl font-semibold cursor-pointer hover:scale-105 duration-300 dark:text-black">
+        <h1 className="z-30 font-dalek text-xl sm:text-2xl font-semibold cursor-pointer hover:scale-105 duration-300 dark:text-black">
           MERCURIUS
         </h1>
       </Link>
@@ -137,7 +137,7 @@ const Header = () => {
 
       <section className="header__icons space-x-3 sm3:space-x-6 text-xl flex items-center justify-center">
         <span
-          className="block z-30 w-fit group cursor-pointer"
+          className="block z-40 w-fit group cursor-pointer"
           // onClick={() => setAvatarMenuOpen(!avatarMenuOpen)}
         >
           {userInfo ? (
