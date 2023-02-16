@@ -30,17 +30,19 @@ export default function Home({
       const userData = window.localStorage.getItem("UserData");
       console.log(userData);
 
-      if (userData.error) {
-        window.localStorage.removeItem("UserData");
-        window.localStorage.removeItem("UserData");
-        setUserInfo(null);
-        setUserStatus(null);
-        signOut({ callbackUrl: "/" });
-      } else {
-        window.localStorage.setItem("UserData", JSON.stringify(session.user));
-        setUserInfo(session.user);
-        setUserStatus(session.user);
-      }
+      
+
+      // if (userData.error) {
+      //   window.localStorage.removeItem("UserData");
+      //   window.localStorage.removeItem("UserData");
+      //   setUserInfo(null);
+      //   setUserStatus(null);
+      //   signOut({ callbackUrl: "/" });
+      // } else {
+      //   window.localStorage.setItem("UserData", JSON.stringify(session.user));
+      //   setUserInfo(session.user);
+      //   setUserStatus(session.user);
+      // }
     } else {
       console.log("No session")
     }
