@@ -29,9 +29,11 @@ const Register = () => {
         if (userData && userData.error) {
           window.localStorage.removeItem("UserData");
           setUserInfo(null);
-          signOut({ callbackUrl: "/register" });
-        } else {
-          toast.error("You already have an account...");
+          signOut({ callbackUrl: "/login" });
+        }
+
+        if ((userData && userData.name) || (userData && userData.fullname)) {
+          toast.error("You have already logged in...");
           router.push("/");
         }
       }

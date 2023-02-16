@@ -25,7 +25,9 @@ const Login = ({}) => {
           window.localStorage.removeItem("UserData");
           setUserInfo(null);
           signOut({ callbackUrl: "/login" });
-        } else {
+        }
+
+        if ((userData && userData.name) || (userData && userData.fullname)) {
           toast.error("You have already logged in...");
           router.push("/");
         }
