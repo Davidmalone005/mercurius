@@ -42,7 +42,7 @@ const Add_address = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      user: userStatus.id,
+      user: userStatus ? userStatus.id: 0,
 
       country: "Nigeria",
     },
