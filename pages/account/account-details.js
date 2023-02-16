@@ -232,7 +232,7 @@ const AccountDetails = ({}) => {
               className={`bg-[#F1F1F1] w-[100%] flex flex-col items-center justify-center scroll-smooth duration-500`}
             >
               {/* Header */}
-              <section className="w-full sticky top-0 left-0 bg-black text-white px-4 py-3 md:px-6 md:py-4 mb-5 md:mb-8 flex items-center justify-start z-30">
+              <section className="w-full sticky top-0 left-0 bg-black text-white px-4 py-3 md:px-6 md:py-4 mb-5 md:mb-8 flex items-center justify-start z-10">
                 <Link href="/account">
                   <BsArrowLeft
                     size={25}
@@ -244,7 +244,7 @@ const AccountDetails = ({}) => {
 
               {/* Content Start */}
               <section
-                className={`w-full h-fit flex flex-col items-center justify-center px-4 py-3 md:px-6 md:py-4 z-20 ${
+                className={`w-full h-fit flex flex-col items-center justify-center px-4 py-3 md:px-6 md:py-4 z-10 ${
                   asideOpen ? "" : ""
                 } overflow-x-hidden scrollbar-thin scrollbar-track-gray-300 scrollbar-thumb-primary scroll-smooth space-y-2 duration-500`}
               >

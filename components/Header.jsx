@@ -137,7 +137,7 @@ const Header = () => {
 
       <section className="header__icons space-x-3 sm3:space-x-6 text-xl flex items-center justify-center">
         <span
-          className="block z-20 w-fit group cursor-pointer"
+          className="block z-30 w-fit group cursor-pointer"
           // onClick={() => setAvatarMenuOpen(!avatarMenuOpen)}
         >
           {userInfo ? (

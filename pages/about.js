@@ -32,7 +32,7 @@ const about = () => {
         <section className="text-white dark:text-white w-[90%] sm2:w-[85%] py-12 sm2:py-0 md:w-[70%] h-[100%] flex flex-col items-center justify-center z-20">
           <h1 className="text-3xl uppercase font-dalek mb-8">Our Story</h1>
 
-          <section className="z-30 opacity-70 bg-glass_img bg-no-repeat bg-cover bg-fixed w-[100%] bg-white  text-black dark:text-black p-12">
+          <section className="z-20 opacity-70 bg-glass_img bg-no-repeat bg-cover bg-fixed w-[100%] bg-white  text-black dark:text-black p-12">
             <p className="my-3 text-md px-6 text-center">
               Had a vision of creating an online marketplace that could bring
               the best of both worlds to customers. After looking at the way of

@@ -99,7 +99,7 @@ const ProductPage = ({
                 alt={productDI ? productDI.product : product.name}
                 width={500}
                 height={500}
-                className="w-full h-auto max-h-[500px] md2:h-[500px] object-cover object-center z-20"
+                className="w-full h-auto max-h-[500px] md2:h-[500px] object-cover object-center z-10"
               />
             </section>
 

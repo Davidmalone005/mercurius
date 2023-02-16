@@ -103,7 +103,7 @@ export default function CategoryPage({}) {
       </Head>
 
       <section className="w-full min-w-full h-[350px] max-h-[350px] grid place-items-center overflow-hidden z-10 relative">
-        <section className="bg-black absolute top-0 left-0 w-full h-[100%] opacity-80 z-30"></section>
+        <section className="bg-black absolute top-0 left-0 w-full h-[100%] opacity-80 z-10"></section>
 
         <Image
           src={catBg}
@@ -113,7 +113,7 @@ export default function CategoryPage({}) {
           className="w-full h-[100%] max-h-[100%] object-cover object-center z-20"
         />
 
-        <section className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-center px-4 z-40">
+        <section className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-center px-4 z-20">
           <h1 className="text-white sm:text-lg md:text-2xl md2:text-3xl lg:text-4xl font-dalek font-semibold">
             {subcatObj.name}
           </h1>
