@@ -27,6 +27,7 @@ export default function Home({
 
   useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("UserData"));
+    console.log(userData)
 
     if (session && session.user && session.user.name) {
       if (userData === null || userData === "undefined") {

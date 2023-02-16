@@ -25,7 +25,6 @@ const Account = ({}) => {
 
   const handleSignOut = () => {
     window.localStorage.removeItem("UserData");
-    window.localStorage.removeItem("UserData");
     setUserInfo(null);
     setUserStatus(null);
     signOut({ callbackUrl: "/register" });
