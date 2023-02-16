@@ -24,8 +24,6 @@ const Register = () => {
 
   useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("UserData"));
-
-    useEffect(() => {
     if (typeof window !== "undefined" || typeof window !== null) {
       const userData = JSON.parse(window.localStorage.getItem("UserData"));
       if (userData !== null || userData !== "undefined") {
