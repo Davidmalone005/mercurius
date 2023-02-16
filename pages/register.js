@@ -29,7 +29,7 @@ const Register = () => {
         if (userData && userData.error) {
           window.localStorage.removeItem("UserData");
           setUserInfo(null);
-          signOut({ callbackUrl: "/login" });
+          signOut({ callbackUrl: "/register" });
         }
 
         if ((userData && userData.name) || (userData && userData.fullname)) {
