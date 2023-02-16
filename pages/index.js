@@ -2,7 +2,7 @@ import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import { AllProducts, Flashsales, HeroBanner } from "../components";
 import { useAppContext } from "../context/AppContext";
-import { useSession } from "next-auth/react";
+import { getSession, useSession, signOut } from "next-auth/react";
 
 export default function Home({
   products,
@@ -10,7 +10,6 @@ export default function Home({
   flashsale_products,
   productTypes,
 }) {
-  
   const {
     flashsaleProducts,
     setFlashsaleProducts,
@@ -22,22 +21,28 @@ export default function Home({
     setUserInfo,
   } = useAppContext();
 
-
   const { data: session } = useSession();
 
   const [userStatus, setUserStatus] = useState(null);
 
-  
-
   useEffect(() => {
-  if (session && session.user && session.user.name) {
-    window.localStorage.setItem("UserData", JSON.stringify(session.user));
-    setUserInfo(session.user);
-    setUserStatus(session.user);
-  }  
-  
-  }, [session, setUserInfo])
-  
+    if (session && session.user && session.user.name) {
+      const userData = window.localStorage.getItem("UserData");
+      console.log(userData);
+
+      if (userData.error) {
+        window.localStorage.removeItem("UserData");
+        window.localStorage.removeItem("UserData");
+        setUserInfo(null);
+        setUserStatus(null);
+        signOut({ callbackUrl: "/" });
+      } else {
+        window.localStorage.setItem("UserData", JSON.stringify(session.user));
+        setUserInfo(session.user);
+        setUserStatus(session.user);
+      }
+    }
+  }, [session, setUserInfo]);
 
   useEffect(() => {
     if (products.length !== 0) {
@@ -73,7 +78,17 @@ export default function Home({
         setFlashsaleTimerSwitch(true);
       }
     }
-  }, [flashsale_products, flashsale_timer, productTypes, products, setFlashsaleProducts, setFlashsaleTimer, setFlashsaleTimerSwitch, setProductTypes, setProducts]);
+  }, [
+    flashsale_products,
+    flashsale_timer,
+    productTypes,
+    products,
+    setFlashsaleProducts,
+    setFlashsaleTimer,
+    setFlashsaleTimerSwitch,
+    setProductTypes,
+    setProducts,
+  ]);
 
   return (
     <section className="">
@@ -127,5 +142,4 @@ export const getServerSideProps = async ({ req }) => {
     },
   };
 };
-
 

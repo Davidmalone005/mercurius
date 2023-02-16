@@ -20,14 +20,14 @@ import { signIn } from "next-auth/react";
 const Register = () => {
   const router = useRouter();
 
-  useEffect(() => {
-    if (typeof window !== "undefined" || typeof window !== null) {
-      if (window.localStorage.getItem("UserData")) {
-        toast.error("You have an account and you have logged in...");
-        router.push("/");
-      }
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined" || typeof window !== null) {
+  //     if (window.localStorage.getItem("UserData")) {
+  //       toast.error("You have an account and you have logged in...");
+  //       router.push("/");
+  //     }
+  //   }
+  // }, [router]);
 
   const { showPassword, setShowPassword } = useAppContext();
 
