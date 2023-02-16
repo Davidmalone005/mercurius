@@ -30,13 +30,16 @@ export default function Home({
     setUserInfo(session.user);
     setUserStatus(session.user);
   } else {
-    const userData = JSON.parse(window.localStorage.getItem("UserData"));
-    if (userData && userData.error) {
-      window.localStorage.removeItem("UserData");
-      setUserInfo(null);
-      setUserStatus(null);
-      signOut({ callbackUrl: "/" });
+    if (typeof window !== "undefined" || typeof window !== null) {
+      const userData = JSON.parse(window.localStorage.getItem("UserData"));
+      if (userData && userData.error) {
+        window.localStorage.removeItem("UserData");
+        setUserInfo(null);
+        setUserStatus(null);
+        signOut({ callbackUrl: "/" });
+      }
     }
+    
   }
 
   useEffect(() => {
@@ -137,4 +140,5 @@ export const getServerSideProps = async ({ req }) => {
     },
   };
 };
+
 
