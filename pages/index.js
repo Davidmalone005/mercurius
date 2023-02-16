@@ -41,6 +41,8 @@ export default function Home({
         setUserInfo(session.user);
         setUserStatus(session.user);
       }
+    } else {
+      console.log("No session")
     }
   }, [session, setUserInfo]);
 
