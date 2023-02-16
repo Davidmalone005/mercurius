@@ -29,17 +29,6 @@ export default function Home({
     window.localStorage.setItem("UserData", JSON.stringify(session.user));
     setUserInfo(session.user);
     setUserStatus(session.user);
-  } else {
-    if (typeof window !== "undefined" || typeof window !== null) {
-      const userData = JSON.parse(window.localStorage.getItem("UserData"));
-      if (userData && userData.error) {
-        window.localStorage.removeItem("UserData");
-        setUserInfo(null);
-        setUserStatus(null);
-        signOut({ callbackUrl: "/" });
-      }
-    }
-    
   }
 
   useEffect(() => {
@@ -140,5 +129,4 @@ export const getServerSideProps = async ({ req }) => {
     },
   };
 };
-
 
