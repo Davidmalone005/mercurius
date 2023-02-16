@@ -14,7 +14,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
-const AddAddress = ({}) => {
+const AddAddress = () => {
   const router = useRouter();
 
   const [userStatus, setUserStatus] = useState(null);

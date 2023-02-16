@@ -14,7 +14,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
-const Update_address = ({}) => {
+const Update_address = () => {
   const router = useRouter();
 
   const { userInfo, setUserInfo } = useAppContext();
