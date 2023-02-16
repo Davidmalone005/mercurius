@@ -15,7 +15,7 @@ import {
 } from "react-icons/bs";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 const Register = () => {
   const router = useRouter();
