@@ -43,7 +43,6 @@ const Change_password = ({}) => {
         })
           .then((res) => res.json())
           .then((userStatusRes) => {
-            console.log(userStatusRes);
             window.localStorage.setItem(
               "UserData",
               JSON.stringify(userStatusRes)
