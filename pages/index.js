@@ -24,24 +24,20 @@ export default function Home({
   const { data: session } = useSession();
 
   const [userStatus, setUserStatus] = useState(null);
-  
-  useEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem("UserData"));
-    console.log(userData);
 
-    if (session && session.user && session.user.name) {
-      window.localStorage.setItem("UserData", JSON.stringify(session.user));
-      setUserInfo(session.user);
-      setUserStatus(session.user);
-    } else {
-      if (userData && userData.error) {
-        window.localStorage.removeItem("UserData");
-        setUserInfo(null);
-        setUserStatus(null);
-        signOut({ callbackUrl: "/" });
-      }
+  if (session && session.user && session.user.name) {
+    window.localStorage.setItem("UserData", JSON.stringify(session.user));
+    setUserInfo(session.user);
+    setUserStatus(session.user);
+  } else {
+    const userData = JSON.parse(window.localStorage.getItem("UserData"));
+    if (userData && userData.error) {
+      window.localStorage.removeItem("UserData");
+      setUserInfo(null);
+      setUserStatus(null);
+      signOut({ callbackUrl: "/" });
     }
-  }, [session, setUserInfo]);
+  }
 
   useEffect(() => {
     if (products.length !== 0) {
