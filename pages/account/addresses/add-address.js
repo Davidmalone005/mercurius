@@ -14,7 +14,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
-const AddAddress = () => {
+const Add_address = () => {
   const router = useRouter();
 
   const [userStatus, setUserStatus] = useState(null);
@@ -543,4 +543,4 @@ const AddAddress = () => {
   );
 };
 
-export default AddAddress;
+export default Add_address;
