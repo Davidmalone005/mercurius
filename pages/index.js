@@ -43,7 +43,7 @@ export default function Home({
         signOut({ callbackUrl: "/" });
       }
     }
-  }, [session, setUserInfo]);
+  }, [] );
 
   useEffect(() => {
     if (products.length !== 0) {
