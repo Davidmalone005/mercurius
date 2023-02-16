@@ -26,16 +26,16 @@ export default function Home({
   const [userStatus, setUserStatus] = useState(null);
 
   useEffect(() => {
-    if (session && session.user && session.user.name) {
-      const userData = window.localStorage.getItem("UserData");
-      console.log(userData);
+    const userData = window.localStorage.getItem("UserData");
+    console.log(userData);
 
+    if (session && session.user && session.user.name) {
       if (userData === null || userData === "undefined") {
         window.localStorage.setItem("UserData", JSON.stringify(session.user));
         setUserInfo(session.user);
         setUserStatus(session.user);
       }
-
+    } else {
       if (
         (userData !== null && userData.error) ||
         (userData !== "undefined" && userData.error)
@@ -45,8 +45,6 @@ export default function Home({
         setUserStatus(null);
         signOut({ callbackUrl: "/" });
       }
-    } else {
-      console.log("No session");
     }
   }, [session, setUserInfo]);
 
