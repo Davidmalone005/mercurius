@@ -241,6 +241,10 @@ const Checkout = ({}) => {
     onClose: () => alert("Wait! You need these items, don't go!"),
   };
 
+  console.log(totalAmountBeforeCoupons);
+  console.log(totalAmountAfterCoupons);
+  console.log(totalCartAmt);
+
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
       <Head>
