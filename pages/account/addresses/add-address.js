@@ -34,129 +34,137 @@ const Add_address = () => {
     signOut({ callbackUrl: "/register" });
   };
 
-  return <div>add-address</div>;
+  // Form Dependencies
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      user: userStatus.id,
+
+      country: "Nigeria",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    if (userStatus) {
+      data.postal_code = data.postal_code !== "" ? data.postal_code : "000000";
+
+      try {
+        const options = {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(data),
+        };
+
+        await fetch(
+          `https://mercurius-backend.up.railway.app/api/addresses/add/`,
+          options
+        )
+          .then((res) => res.json())
+          .then((resData) => {
+            if (resData.errors) {
+              toast.error(resData.errors[0]);
+            } else {
+              toast.success(resData.success);
+              router.reload(window.location.pathname);
+            }
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      toast.error("Please LOGIN to your account to update it");
+      handleSignOut();
+    }
+  };
+
+  const sidebarLinks = [
+    {
+      name: "Account",
+      url: "/account",
+      icon: <ImUser size={20} className="mr-2" />,
+      active: true,
+    },
+    {
+      name: "Favourites",
+      url: "/favourites",
+      icon: <FaHeart size={20} className="mr-2" />,
+    },
+    {
+      name: "Orders",
+      url: "/orders",
+      icon: <FiPackage size={20} className="mr-2" />,
+    },
+    {
+      name: "Inbox",
+      url: "/inbox",
+      icon: <FaEnvelope size={20} className="mr-2" />,
+    },
+    {
+      name: "Storehouse",
+      url: "/storehouse",
+      icon: <MdInventory size={20} className="mr-2" />,
+    },
+    {
+      name: "Log Out",
+      url: null,
+      icon: <RiLogoutBoxFill size={20} className="mr-2" />,
+    },
+  ];
+
+  const [asideOpen, setAsideOpen] = useState(false);
+
+    useEffect(() => {
+      if (typeof window !== "undefined" || typeof window !== null) {
+        if (
+          (window.localStorage.getItem("UserData") &&
+            userStatus === "undefined") ||
+          (window.localStorage.getItem("UserData") && userStatus === null)
+        ) {
+          setUserStatus(JSON.parse(window.localStorage.getItem("UserData")));
+        } else if (!window.localStorage.getItem("UserData")) {
+          window.localStorage.removeItem("UserData");
+          toast.error("Please login with your email and password!");
+          setUserInfo(null);
+          setUserStatus(null);
+          signOut({ callbackUrl: "/login" });
+        } else {
+          fetch("https://mercurius-backend.up.railway.app/api/users/verify/", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(userStatus),
+          })
+            .then((res) => res.json())
+            .then((userStatusRes) => {
+              window.localStorage.setItem(
+                "UserData",
+                JSON.stringify(userStatusRes)
+              );
+              setUserInfo(userStatusRes);
+              setUserStatus(userStatusRes);
+              return userStatusRes;
+            });
+        }
+      }
+    }, [setUserInfo, userStatus]);
+
+  return (
+    <section>
+      <div>Add Address</div>
+      <div>hello there</div>
+    </section>
+  );
 };
 
 export default Add_address;
 
 // const Add_address = () => {
 
-//   // Form Dependencies
-//   const {
-//     register,
-//     handleSubmit,
-//     setError,
-//     formState: { errors },
-//   } = useForm({
-//     defaultValues: {
-//       user: userStatus.id,
 
-//       country: "Nigeria",
-//     },
-//   });
 
-//   const onSubmit = async (data) => {
-//     if (userStatus) {
-//       data.postal_code = data.postal_code !== "" ? data.postal_code : "000000";
-
-//       try {
-//         const options = {
-//           method: "POST",
-//           headers: { "Content-type": "application/json" },
-//           body: JSON.stringify(data),
-//         };
-
-//         await fetch(
-//           `https://mercurius-backend.up.railway.app/api/addresses/add/`,
-//           options
-//         )
-//           .then((res) => res.json())
-//           .then((resData) => {
-//             if (resData.errors) {
-//               toast.error(resData.errors[0]);
-//             } else {
-//               toast.success(resData.success);
-//               router.reload(window.location.pathname);
-//             }
-//           });
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     } else {
-//       toast.error("Please LOGIN to your account to update it");
-//       handleSignOut();
-//     }
-//   };
-
-//   const sidebarLinks = [
-//     {
-//       name: "Account",
-//       url: "/account",
-//       icon: <ImUser size={20} className="mr-2" />,
-//       active: true,
-//     },
-//     {
-//       name: "Favourites",
-//       url: "/favourites",
-//       icon: <FaHeart size={20} className="mr-2" />,
-//     },
-//     {
-//       name: "Orders",
-//       url: "/orders",
-//       icon: <FiPackage size={20} className="mr-2" />,
-//     },
-//     {
-//       name: "Inbox",
-//       url: "/inbox",
-//       icon: <FaEnvelope size={20} className="mr-2" />,
-//     },
-//     {
-//       name: "Storehouse",
-//       url: "/storehouse",
-//       icon: <MdInventory size={20} className="mr-2" />,
-//     },
-//     {
-//       name: "Log Out",
-//       url: null,
-//       icon: <RiLogoutBoxFill size={20} className="mr-2" />,
-//     },
-//   ];
-
-//   const [asideOpen, setAsideOpen] = useState(false);
-
-//   useEffect(() => {
-//     if (typeof window !== "undefined" || typeof window !== null) {
-//       if (
-//         (window.localStorage.getItem("UserData") &&
-//           userStatus === "undefined") ||
-//         (window.localStorage.getItem("UserData") && userStatus === null)
-//       ) {
-//         setUserStatus(JSON.parse(window.localStorage.getItem("UserData")));
-//       } else if (!window.localStorage.getItem("UserData")) {
-//         window.localStorage.removeItem("UserData");
-//         toast.error("Please login with your email and password!");
-//         setUserInfo(null);
-//         setUserStatus(null);
-//         signOut({ callbackUrl: "/login" });
-//       } else {
-//         fetch("https://mercurius-backend.up.railway.app/api/users/verify/", {
-//           method: "POST",
-//           headers: { "Content-type": "application/json" },
-//           body: JSON.stringify(userStatus),
-//         })
-//           .then((res) => res.json())
-//           .then((userStatusRes) => {
-//             window.localStorage.setItem(
-//               "UserData",
-//               JSON.stringify(userStatusRes)
-//             );
-//             setUserInfo(userStatusRes);
-//             setUserStatus(userStatusRes);
-//             return userStatusRes;
-//           });
-//       }
-//     }
-//   }, [setUserInfo, userStatus]);
 
 //   return (
 //     <section className="w-[85%] mx-auto max-w-screen-xl">
