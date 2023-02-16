@@ -159,7 +159,7 @@ const Add_address = () => {
         </title>
       </Head>
 
-      {userStatus.error ? (
+      {userStatus && userStatus.error ? (
         <section className="w-full p-12 grid place-items-center text-center">
           <h4 className="text-xl text-primary text-center">
             Please, complete your Account registration. Or Login with your
