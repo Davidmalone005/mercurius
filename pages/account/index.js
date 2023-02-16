@@ -28,9 +28,7 @@ const Account = ({}) => {
     window.localStorage.removeItem("UserData");
     setUserInfo(null);
     setUserStatus(null);
-    setTimeout(() => {
-      signOut({ callbackUrl: "/register" });
-    }, 300);
+    signOut({ callbackUrl: "/register" });
   };
 
   const sidebarLinks = [
@@ -102,9 +100,7 @@ const Account = ({}) => {
           });
       }
 
-      const allAddresses = fetch(
-        "https://mercurius-backend.up.railway.app/api/addresses/"
-      )
+      const allAddresses = fetch("https://mercurius-backend.up.railway.app/api/addresses/")
         .then((res) => res.json())
         .then((res) => {
           if (res.length > 0) {
@@ -115,13 +111,11 @@ const Account = ({}) => {
                   (address) => address.user === user.id
                 );
 
-                const defaultAddresses = addresses
-                  ? addresses.filter((address) => address.is_default === true)
-                  : null;
+                const defaultAddresses = addresses ? addresses.filter(
+                  (address) => address.is_default === true
+                ) : null;
 
-                setDefaultAddress(
-                  defaultAddresses ? defaultAddresses[0] : null
-                );
+                setDefaultAddress(defaultAddresses ? defaultAddresses[0] : null);
               }
             }
           }
