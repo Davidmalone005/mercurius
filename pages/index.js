@@ -36,14 +36,15 @@ export default function Home({
       }
     } else {
       if (userData !== null || userData !== "undefined") {
-        if (userData["error"]) {
-          console.log(userData["error"]);
+        console.log(userData.error);
+        // if (userData["error"]) {
+        //   console.log(userData["error"]);
 
-          window.localStorage.removeItem("UserData");
-          setUserInfo(null);
-          setUserStatus(null);
-          signOut({ callbackUrl: "/" });
-        } else console.log(userData);
+        //   window.localStorage.removeItem("UserData");
+        //   setUserInfo(null);
+        //   setUserStatus(null);
+        //   signOut({ callbackUrl: "/" });
+        // } else console.log(userData);
       } else console.log("No user data");
     }
   }, [session, setUserInfo]);
