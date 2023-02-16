@@ -23,11 +23,10 @@ const Register = () => {
   const { showPassword, setShowPassword, setUserInfo } = useAppContext();
 
   useEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem("UserData"));
     if (typeof window !== "undefined" || typeof window !== null) {
       const userData = JSON.parse(window.localStorage.getItem("UserData"));
       if (userData !== null || userData !== "undefined") {
-        if (userData.error) {
+        if (userData && userData.error) {
           window.localStorage.removeItem("UserData");
           setUserInfo(null);
           signOut({ callbackUrl: "/register" });
