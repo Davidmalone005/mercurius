@@ -24,9 +24,9 @@ export default function Home({
   const { data: session } = useSession();
 
   const [userStatus, setUserStatus] = useState(null);
-  const userData = JSON.parse(window.localStorage.getItem("UserData"));
-
+  
   useEffect(() => {
+    const userData = JSON.parse(window.localStorage.getItem("UserData"));
     console.log(userData);
 
     if (session && session.user && session.user.name) {
@@ -41,7 +41,7 @@ export default function Home({
         signOut({ callbackUrl: "/" });
       }
     }
-  }, [session, setUserInfo, userData]);
+  }, [session, setUserInfo]);
 
   useEffect(() => {
     if (products.length !== 0) {
