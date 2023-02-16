@@ -15,17 +15,23 @@ import { useRouter } from "next/router";
 const Login = ({}) => {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined" || typeof window !== null) {
-  //     if (window.localStorage.getItem("UserData")) {
-  //       toast.error("You have already logged in...");
-  //       router.push("/");
-  //     }
-  //   }
-  // }, [router]);
+  const { showPassword, setShowPassword, setUserInfo } = useAppContext();
 
-  const { showPassword, setShowPassword, setUserInfo } =
-    useAppContext();
+  useEffect(() => {
+    if (typeof window !== "undefined" || typeof window !== null) {
+      const userData = JSON.parse(window.localStorage.getItem("UserData"));
+      if (userData !== null || userData !== "undefined") {
+        if (userData.error) {
+          window.localStorage.removeItem("UserData");
+          setUserInfo(null);
+          signOut({ callbackUrl: "/login" });
+        } else {
+          toast.error("You have already logged in...");
+          router.push("/");
+        }
+      }
+    }
+  }, [router, setUserInfo]);
 
   const {
     register,

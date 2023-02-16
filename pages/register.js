@@ -20,16 +20,26 @@ import { signIn } from "next-auth/react";
 const Register = () => {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined" || typeof window !== null) {
-  //     if (window.localStorage.getItem("UserData")) {
-  //       toast.error("You have an account and you have logged in...");
-  //       router.push("/");
-  //     }
-  //   }
-  // }, [router]);
+  const { showPassword, setShowPassword, setUserInfo } = useAppContext();
 
-  const { showPassword, setShowPassword } = useAppContext();
+  useEffect(() => {
+    const userData = JSON.parse(window.localStorage.getItem("UserData"));
+
+    useEffect(() => {
+    if (typeof window !== "undefined" || typeof window !== null) {
+      const userData = JSON.parse(window.localStorage.getItem("UserData"));
+      if (userData !== null || userData !== "undefined") {
+        if (userData.error) {
+          window.localStorage.removeItem("UserData");
+          setUserInfo(null);
+          signOut({ callbackUrl: "/register" });
+        } else {
+          toast.error("You already have an account...");
+          router.push("/");
+        }
+      }
+    }
+  }, [router, setUserInfo]);
 
   const {
     register,

@@ -40,7 +40,7 @@ export default function Home({
         setUserInfo(null);
         setUserStatus(null);
         signOut({ callbackUrl: "/" });
-      } else console.log("No user data");
+      }
     }
   }, [session, setUserInfo]);
 
