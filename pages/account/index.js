@@ -100,7 +100,9 @@ const Account = ({}) => {
           });
       }
 
-      const allAddresses = fetch("https://mercurius-backend.up.railway.app/api/addresses/")
+      const allAddresses = fetch(
+        "https://mercurius-backend.up.railway.app/api/addresses/"
+      )
         .then((res) => res.json())
         .then((res) => {
           if (res.length > 0) {
@@ -111,11 +113,13 @@ const Account = ({}) => {
                   (address) => address.user === user.id
                 );
 
-                const defaultAddresses = addresses ? addresses.filter(
-                  (address) => address.is_default === true
-                ) : null;
+                const defaultAddresses = addresses
+                  ? addresses.filter((address) => address.is_default === true)
+                  : null;
 
-                setDefaultAddress(defaultAddresses ? defaultAddresses[0] : null);
+                setDefaultAddress(
+                  defaultAddresses ? defaultAddresses[0] : null
+                );
               }
             }
           }
@@ -138,7 +142,7 @@ const Account = ({}) => {
           <Link href="#">
             <button
               className="bg-black rounded-md mt-5 px-5 py-3 text-white hover:bg-primary cursor-pointer w-fit"
-              onClick={handleSignOut}
+              onClick={() => handleSignOut()}
             >
               Register
             </button>

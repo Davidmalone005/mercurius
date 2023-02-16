@@ -260,7 +260,7 @@ const Checkout = ({}) => {
           <Link href="#">
             <button
               className="bg-black rounded-md mt-5 px-5 py-3 text-white hover:bg-primary cursor-pointer w-fit"
-              onClick={handleSignOut}
+              onClick={() => handleSignOut()}
             >
               Register
             </button>
