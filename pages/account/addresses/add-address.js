@@ -1,49 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import { useAppContext } from "../../../context/AppContext";
+import toast from "react-hot-toast";
+import { getSession, useSession, signOut } from "next-auth/react";
+import { Sidebar } from "../../../components";
+import { FiMenu, FiPackage, FiEdit } from "react-icons/fi";
+import { FaEnvelope, FaHeart } from "react-icons/fa";
+import { MdClose, MdInventory } from "react-icons/md";
+import { ImUser } from "react-icons/im";
+import { RiLogoutBoxFill } from "react-icons/ri";
+import { BsArrowLeft } from "react-icons/bs";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
-const add_address = () => {
-  return (
-    <div>add-address</div>
-  )
-}
+const Add_address = () => {
+  const router = useRouter();
 
-export default add_address
+  const [userStatus, setUserStatus] = useState(null);
 
+  const {
+    appState: { cart },
+    tabbed,
+    setTabbed,
+    userInfo,
+    setUserInfo,
+  } = useAppContext();
 
+  const handleSignOut = () => {
+    window.localStorage.removeItem("UserData");
+    setUserInfo(null);
+    setUserStatus(null);
+    signOut({ callbackUrl: "/register" });
+  };
 
-// import React, { useState, useEffect } from "react";
-// import Head from "next/head";
-// import Link from "next/link";
-// import { useAppContext } from "../../../context/AppContext";
-// import toast from "react-hot-toast";
-// import { getSession, useSession, signOut } from "next-auth/react";
-// import { Sidebar } from "../../../components";
-// import { FiMenu, FiPackage, FiEdit } from "react-icons/fi";
-// import { FaEnvelope, FaHeart } from "react-icons/fa";
-// import { MdClose, MdInventory } from "react-icons/md";
-// import { ImUser } from "react-icons/im";
-// import { RiLogoutBoxFill } from "react-icons/ri";
-// import { BsArrowLeft } from "react-icons/bs";
-// import { useForm } from "react-hook-form";
-// import { useRouter } from "next/router";
+  return <div>add-address</div>;
+};
+
+export default Add_address;
 
 // const Add_address = () => {
-//   const router = useRouter();
-
-//   const [userStatus, setUserStatus] = useState(null);
-
-//   const {
-//     appState: { cart },
-//     tabbed,
-//     setTabbed,
-//     userInfo,
-//     setUserInfo,
-//   } = useAppContext();
-
-//   const handleSignOut = () => {
-//     window.localStorage.removeItem("UserData");
-//     setUserInfo(null);
-//     signOut({ callbackUrl: "/register" });
-//   };
 
 //   // Form Dependencies
 //   const {
