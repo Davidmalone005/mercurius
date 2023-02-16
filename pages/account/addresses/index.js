@@ -102,7 +102,9 @@ const Addresses = ({}) => {
           });
       }
 
-      const allAddresses = fetch("https://mercurius-backend.up.railway.app/api/addresses/")
+      const allAddresses = fetch(
+        "https://mercurius-backend.up.railway.app/api/addresses/"
+      )
         .then((res) => res.json())
         .then((res) => {
           if (res.length > 0) {
@@ -121,6 +123,9 @@ const Addresses = ({}) => {
     }
   }, [setUserInfo, userStatus]);
 
+
+  // console.log(userStatus);
+
   const deleteAddress = (addressId) => {
     const options = {
       method: "DELETE",
@@ -128,7 +133,10 @@ const Addresses = ({}) => {
       body: JSON.stringify({ addressId: addressId }),
     };
 
-    fetch(`https://mercurius-backend.up.railway.app/api/addresses/${addressId}/delete/`, options);
+    fetch(
+      `https://mercurius-backend.up.railway.app/api/addresses/${addressId}/delete/`,
+      options
+    );
     router.reload(window.location.pathname);
   };
 
@@ -147,7 +155,7 @@ const Addresses = ({}) => {
           <Link href="#">
             <button
               className="bg-black rounded-md mt-5 px-5 py-3 text-white hover:bg-primary cursor-pointer w-fit"
-              onClick={()=>handleSignOut()}
+              onClick={() => handleSignOut()}
             >
               Register
             </button>
