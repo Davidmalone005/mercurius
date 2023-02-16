@@ -36,8 +36,8 @@ export default function Home({
       }
     } else {
       if (userData !== null || userData !== "undefined") {
-        if (userData.error) {
-          console.log(userData.error);
+        if (userData["error"]) {
+          console.log(userData["error"]);
 
           window.localStorage.removeItem("UserData");
           setUserInfo(null);
