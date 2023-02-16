@@ -36,10 +36,7 @@ export default function Home({
         setUserStatus(session.user);
       }
     } else {
-      if (
-        (userData !== null && userData.error) ||
-        (userData !== "undefined" && userData.error)
-      ) {
+      if (userData && userData.error) {
         window.localStorage.removeItem("UserData");
         setUserInfo(null);
         setUserStatus(null);
