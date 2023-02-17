@@ -121,10 +121,7 @@ const Addresses = ({}) => {
           }
         });
     }
-  }, [setUserInfo, userStatus]);
-
-
-  // console.log(userStatus);
+  }, []);
 
   const deleteAddress = (addressId) => {
     const options = {
@@ -139,6 +136,8 @@ const Addresses = ({}) => {
     );
     router.reload(window.location.pathname);
   };
+
+  console.log("Re-rendering?");
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

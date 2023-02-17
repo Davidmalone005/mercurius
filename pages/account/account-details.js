@@ -160,7 +160,7 @@ const AccountDetails = ({}) => {
           return userStatusRes;
         });
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
 
   const formatDob = () => {
     if (userStatus && userStatus.dob) {
@@ -170,6 +170,8 @@ const AccountDetails = ({}) => {
       return dobval;
     }
   };
+
+  console.log("Re-rendering?");
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
