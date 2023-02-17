@@ -16,6 +16,8 @@ const Account = ({}) => {
   const router = useRouter();
   const [userStatus, setUserStatus] = useState(null);
 
+const [isUserStatus, setIsUserStatus] = useState(false);
+
   const {
     appState: { cart },
     tabbed,
@@ -124,7 +126,9 @@ const Account = ({}) => {
           }
         });
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
+
+alert("Re-rendering?");
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
