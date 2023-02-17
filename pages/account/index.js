@@ -16,10 +16,7 @@ const Account = ({}) => {
   const router = useRouter();
   const [userStatus, setUserStatus] = useState(null);
 
-<<<<<<< HEAD
   const [isUserStatus, setIsUserStatus] = useState(false);
-=======
->>>>>>> 449de0e7f78a855639139a5ff0cd85ed42d2025f
 
   const {
     appState: { cart },
