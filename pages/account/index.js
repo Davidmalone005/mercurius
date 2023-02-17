@@ -126,7 +126,7 @@ const [isUserStatus, setIsUserStatus] = useState(false);
           }
         });
     }
-  }, []);
+  }, [userStatus]);
 
 alert("Re-rendering?");
 
