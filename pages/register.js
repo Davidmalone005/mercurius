@@ -100,6 +100,8 @@ const Register = () => {
     signIn("google", { callbackUrl: "/" });
   };
 
+  
+
   return (
     <>
       <Head>

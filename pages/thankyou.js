@@ -34,7 +34,7 @@ const Thankyou = () => {
         setUserStatus(null);
         signOut({ callbackUrl: "/login" });
       } else {
-        fetch("http://localhost:8000/api/users/verify/", {
+        fetch("https://mercurius-backend.up.railway.app/api/users/verify/", {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(userStatus),
@@ -51,7 +51,7 @@ const Thankyou = () => {
           });
       }
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

@@ -169,7 +169,7 @@ const Update_address = () => {
           }
         });
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -181,6 +181,8 @@ const Update_address = () => {
       };
     });
   };
+
+  
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

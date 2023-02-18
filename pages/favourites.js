@@ -60,7 +60,7 @@ const Favourites = ({}) => {
           });
       }
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
 
   const handleSignOut = () => {
     window.localStorage.removeItem("UserData");
@@ -104,6 +104,8 @@ const Favourites = ({}) => {
   ];
 
   const [asideOpen, setAsideOpen] = useState(false);
+
+  console.log("Re-rendering?");
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

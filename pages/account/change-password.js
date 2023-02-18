@@ -53,7 +53,7 @@ const Change_password = ({}) => {
           });
       }
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
 
   const handleSignOut = () => {
     window.localStorage.removeItem("UserData");

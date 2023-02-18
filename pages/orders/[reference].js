@@ -142,7 +142,8 @@ const OrderDetails = () => {
           });
       }
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
+
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

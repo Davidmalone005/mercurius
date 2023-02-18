@@ -96,6 +96,7 @@ export default function CategoryPage({}) {
     return filteredProducts;
   };
 
+
   return (
     <section className="">
       <Head>

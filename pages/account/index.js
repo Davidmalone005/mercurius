@@ -128,7 +128,7 @@ const Account = ({}) => {
     }
   }, []);
 
-console.log("Re-rendering?");
+
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

@@ -120,9 +120,8 @@ const Orders = ({}) => {
         }
       }
     }
-  }, [setUserInfo, userStatus]);
+  }, []);
 
-  // console.log(userOrders)
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

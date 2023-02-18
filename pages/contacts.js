@@ -49,6 +49,7 @@ const Contact = () => {
     }
   };
 
+
   return (
     <section className="w-full min-w-[320px] grid place-items-center overflow-hidden z-10">
       <Head>
