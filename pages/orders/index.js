@@ -203,7 +203,7 @@ const Orders = ({}) => {
                   <section className="w-[100%] space-y-6">
                     {userOrders &&
                       userOrders.map((order) => {
-                        const diArr = order.ordered_items
+                        const oi = order.ordered_items
                           ? order.ordered_items.filter(
                               (item) =>
                                 item.defaultImage.includes("placeholder") ===
@@ -221,15 +221,14 @@ const Orders = ({}) => {
                             )
                           : null;
 
-                        const di = diArr ? diArr[0] : null;
-
-                        console.log(diArr);
-                        console.log(di);
+                        const di = oi ? oi[0] : null;
 
                         const diUrl = di
-                          ? "https://res.cloudinary.com/dxhq8jlxf/" +
+                          ?
                             di.defaultImage.replace(/ /g, "%20")
                           : "#";
+
+                          console.log(diUrl)
 
                         const paidDate = new Date(
                           order.paid_at

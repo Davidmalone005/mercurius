@@ -118,7 +118,9 @@ const OrderDetails = () => {
 
         setOrder(order[0]);
 
-        const allAddresses = fetch("https://mercurius-backend.up.railway.app/api/addresses/")
+        const allAddresses = fetch(
+          "https://mercurius-backend.up.railway.app/api/addresses/"
+        )
           .then((res) => res.json())
           .then((res) => {
             if (res.length > 0) {
@@ -144,7 +146,6 @@ const OrderDetails = () => {
     }
   }, []);
 
-
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
       <Head>
@@ -163,7 +164,7 @@ const OrderDetails = () => {
           <Link href="/register">
             <button
               className="bg-black rounded-md mt-5 px-5 py-3 text-white hover:bg-primary cursor-pointer w-fit"
-              onClick={()=>handleSignOut()}
+              onClick={() => handleSignOut()}
             >
               Register
             </button>
@@ -255,9 +256,7 @@ const OrderDetails = () => {
                           order.ordered_items.map((item) => {
                             const di = item.defaultImage;
 
-                            const diUrl =
-                              "https://res.cloudinary.com/dxhq8jlxf/" +
-                              di.replace(/ /g, "%20");
+                            const diUrl = di.replace(/ /g, "%20");
 
                             return (
                               <section

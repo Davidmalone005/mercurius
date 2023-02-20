@@ -407,19 +407,29 @@ const Storehouse = () => {
 
                     {storehouseOrders &&
                       storehouseOrders.map((order) => {
+
                         const diArr = order.ordered_items
                           ? order.ordered_items.filter(
                               (item) =>
                                 item.defaultImage.includes("placeholder") ===
                                 false
                             )
+                          : order.ordered_items.filter(
+                              (item) =>
+                                item.defaultImage.includes("placeholder") ===
+                                true
+                            )
+                          ? order.ordered_items.filter(
+                              (item) =>
+                                item.defaultImage.includes("placeholder") ===
+                                true
+                            )
                           : null;
 
                         const di = diArr ? diArr[0] : null;
 
                         const diUrl = di
-                          ? "https://res.cloudinary.com/dxhq8jlxf/" +
-                            di.defaultImage.replace(/ /g, "%20")
+                          ? di.defaultImage.replace(/ /g, "%20")
                           : "#";
 
                         const paidDate = new Date(
