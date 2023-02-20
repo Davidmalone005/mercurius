@@ -263,6 +263,8 @@ export const AppProvider = ({ children }) => {
     appStateDispatch({ type: "SELECT_SIZE", payload: item });
   };
 
+  const [storehouseTimerOn, setStorehouseTimerOn] = useState(false)
+
   return (
     <AppContext.Provider
       value={{
@@ -313,7 +315,7 @@ export const AppProvider = ({ children }) => {
         setProductTypes,
         selectSize,
         totalAmountWithShippingNtax,
-
+storehouseTimerOn, setStorehouseTimerOn,
         totalCartAmt,
         setTotalCartAmt,
       }}

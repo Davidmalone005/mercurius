@@ -440,8 +440,16 @@ const Storehouse = () => {
                         const bsd = new Date(bs).getTime();
 
                         let now = Date.now();
-                        const msDays = 1000 * 60 * 60 * 24;
+                        // const msDays = 1000 * 60 * 60 * 24;
+
+                        // for testing purposes
+                        const msDays = 1000 * 60 * 5;
+
                         let atime = now - bsd;
+                        
+                        // let overdue = Math.round(atime / msDays);
+
+                        // for testing purposes
                         let overdue = Math.round(atime / msDays);
 
                         const item_cost =

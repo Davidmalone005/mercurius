@@ -4,9 +4,6 @@ import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 
 const StorehouseTimer = ({ billing_starts }) => {
-  const { flashsaleTimer, flashsaleTimerSwitch, setFlashsaleTimerSwitch } =
-    useAppContext();
-
   const router = useRouter();
 
   const bs = new Date(billing_starts).getTime();
@@ -43,7 +40,7 @@ const StorehouseTimer = ({ billing_starts }) => {
       returnedStatement = `${paddedMinutes} : ${paddedSeconds}`;
     }
 
-    return time < 0 ? setFlashsaleTimerSwitch(false) : returnedStatement;
+    return returnedStatement;
   };
 
   const padWithZeros = (number, minLength) => {
@@ -58,28 +55,8 @@ const StorehouseTimer = ({ billing_starts }) => {
       updateRemainingTime(time);
     }, 1000);
 
-      if (time < 0) {
-        const options = {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-        };
-
-        fetch(
-          "https://mercurius-backend.up.railway.app/api/inventory/f/disable/",
-          options
-        )
-          .then((res) => res.json())
-          .then((resData) => {});
-
-        toast.error("Flash sales have ended!");
-
-        setTimeout(() => {
-          router.reload(window.location.pathname);
-        }, 1000);
-      }
-
     return () => clearInterval(intervalId);
-  }, []);
+  }, [time]);
 
   return (
     <section className="ml-4 font-dalek font-bold text-lg">
