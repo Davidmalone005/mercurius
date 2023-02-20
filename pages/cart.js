@@ -133,7 +133,7 @@ const Cart = () => {
         alert("Order has changed after coupon was applied!");
       }
     }
-  }, [totalAmountBeforeCoupons, totalAmountAfterCoupons, totalCartAmt]);
+  }, []);
 
   console.log(totalAmountBeforeCoupons);
   console.log(totalAmountAfterCoupons);
@@ -199,7 +199,12 @@ const Cart = () => {
                       <section className="">{item.name}</section>
 
                       <section className="mt-1 sm2:mt-2 font-semibold">
-                        ₦{numbersWithCommas(item.price)}
+                        ₦
+                        {numbersWithCommas(
+                          item.flashsale_price
+                            ? item.flashsale_price
+                            : item.price
+                        )}
                       </section>
 
                       <section className="mt-1 sm2:mt-2 flex items-start justify-start flex-wrap space-x-2 space-y-2 text-sm">
@@ -236,7 +241,12 @@ const Cart = () => {
 
                     <section className="w-full relative flex items-center justify-between sm2:w-[20%] sm2:flex-col sm2:items-start space-x-2 mt-3">
                       <section className="font-semibold  dark:text-black">
-                        ₦{numbersWithCommas(item.price * item.qty)}
+                        ₦
+                        {numbersWithCommas(
+                          (item.flashsale_price
+                            ? item.flashsale_price
+                            : item.price) * item.qty
+                        )}
                       </section>
                       <section
                         className="md:mt-2 cursor-pointer text-red-700 hover:text-black duration-300 w-fit"
@@ -274,21 +284,21 @@ const Cart = () => {
                 <section className="flex items-center justify-between my-1">
                   <span>Subtotal</span>
                   <span className="font-semibold">
-                    ₦{numbersWithCommas(totalPrice)}
+                    ₦{numbersWithCommas(totalPrice ? totalPrice : 0)}
                   </span>
                 </section>
 
                 <section className="flex items-center justify-between my-1">
                   <span>Shipping Fee</span>
                   <span className="font-semibold">
-                    ₦{numbersWithCommas(shipping)}
+                    ₦{numbersWithCommas(shipping ? shipping : 0)}
                   </span>
                 </section>
 
                 <section className="flex items-center justify-between my-1">
                   <span>Sales Tax</span>
                   <span className="font-semibold">
-                    ₦{numbersWithCommas(salesTax)}
+                    ₦{numbersWithCommas(salesTax ? salesTax : 0)}
                   </span>
                 </section>
 
@@ -301,6 +311,9 @@ const Cart = () => {
                         ? totalAmountAfterCoupons
                         : totalCartAmt
                     )}
+                    {/* ₦
+                    {numbersWithCommas(totalCartAmt
+                    )} */}
                   </span>
                 </section>
               </section>
@@ -379,6 +392,13 @@ const Cart = () => {
                     appStateDispatch({
                       type: "CLEAR_CART",
                     });
+                    setTotalAmountAfterCoupons(0);
+                    setTotalAmountBeforeCoupons(0);
+                    setTotalCartAmt(0);
+                    setCouponAlert("");
+                    window.localStorage.removeItem("couponAlert");
+                    window.localStorage.removeItem("TotalAmountAfterCoupons");
+                    window.localStorage.removeItem("TotalAmountBeforeCoupons");
                     toast.error(`Cart cleared`);
                   }}
                 >

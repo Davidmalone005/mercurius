@@ -27,6 +27,7 @@ const Checkout = ({}) => {
     totalAmountWithShippingNtax,
     totalCartAmt,
     setTotalCartAmt,
+    defaultAddress,
   } = useAppContext();
 
   const [userStatus, setUserStatus] = useState(null);
@@ -46,8 +47,6 @@ const Checkout = ({}) => {
 
   const [items, setItems] = useState([]);
   const [coupons, setCoupons] = useState([]);
-
-  const [defaultAddress, setDefaultAddress] = useState(null);
 
   setSalesTax(salesTaxCost);
 
@@ -123,47 +122,13 @@ const Checkout = ({}) => {
         setItems(itemsArr);
       }
 
-      const allAddresses = fetch(
-        "https://mercurius-backend.up.railway.app/api/addresses/"
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          // if (res.length > 0) {
-          //   if (window.localStorage.getItem("UserData")) {
-          //     const user = JSON.parse(window.localStorage.getItem("UserData"));
-          //     if (user.id) {
-          //       const addresses = res.filter(
-          //         (address) => address.user === user.id
-          //       );
-          //       const defaultAddresses = addresses.filter(
-          //         (address) => address.is_default === true
-          //       );
-          //       setDefaultAddress(
-          //         defaultAddresses.length > 0 ? defaultAddresses[0] : null
-          //       );
-          //       const shippingDestination =
-          //         defaultAddresses.length > 0
-          //           ? defaultAddresses[0].state
-          //           : null;
-          //       const sdArr = shippingDestination ? shippingDestination.split(" ") : null;
-          //       const shippingFee = {sdArr && sdArr[0]
-          //        fetch(
-          //         `https://mercurius-backend.up.railway.app/api/orders/shippingrates/${sdArr[0]}/`
-          //       )
-          //         .then((res) => res.json())
-          //         .then((res) => {
-          //           if (res.detail) {
-          //             setShipping(3500);
-          //           } else {
-          //             setShipping(res.shipping_fee);
-          //           }
-          //         });
-          //     }
-          //       }}
-          //   }
-        });
+      // const allAddresses = fetch(
+      //   "https://mercurius-backend.up.railway.app/api/addresses/"
+      // )
+      //   .then((res) => res.json())
+      //   .then((res) => {});
     }
-  }, [setShipping, setUserInfo, userStatus]);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined" || typeof window !== null) {
@@ -178,7 +143,7 @@ const Checkout = ({}) => {
         );
       }
     }
-  }, [totalAmountAfterCoupons]);
+  }, []);
 
   useEffect(() => {
     if (
@@ -190,7 +155,7 @@ const Checkout = ({}) => {
         alert("Order has changed after coupon was applied!");
       }
     }
-  }, [totalAmountBeforeCoupons, totalAmountAfterCoupons, totalCartAmt]);
+  }, []);
 
   const paymentPropsSts = {
     email: userStatus && userStatus.email ? userStatus.email : "",
@@ -320,7 +285,11 @@ const Checkout = ({}) => {
                             <section className="">{item.name}</section>
                             <section className="mt-1 font-semibold">
                               Qty: {item.qty}, Subtotal: ₦
-                              {numbersWithCommas(item.price * item.qty)}
+                              {numbersWithCommas(
+                                (item.flashsale_price
+                                  ? item.flashsale_price
+                                  : item.price) * item.qty
+                              )}
                             </section>
                           </section>
                         </section>

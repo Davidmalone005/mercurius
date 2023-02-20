@@ -38,6 +38,8 @@ export const AppProvider = ({ children }) => {
       : "0".replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
   };
 
+  const [defaultAddress, setDefaultAddress] = useState(null);
+
   // CART
   const [appState, appStateDispatch] = useReducer(appReducer, [], () => ({
     cart: [],
@@ -105,6 +107,10 @@ export const AppProvider = ({ children }) => {
                   (address) => address.is_default === true
                 );
 
+                setDefaultAddress(
+                  defaultAddresses.length > 0 ? defaultAddresses[0] : null
+                );
+
                 const shippingDestination =
                   defaultAddresses.length > 0
                     ? defaultAddresses[0].state
@@ -134,7 +140,7 @@ export const AppProvider = ({ children }) => {
           }
         });
     }
-  }, [shipping, appState.cart.length, salesTax, totalPrice]);
+  }, []);
 
   // CART FUNCTIONS
   const addToCart = (item) => {
@@ -175,7 +181,10 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     setTotalPrice(
       appState.cart.reduce(
-        (acc, curr) => acc + Number(curr.price) * curr.qty,
+        (acc, curr) =>
+          acc +
+          Number(curr.flashsale_price ? curr.flashsale_price : curr.price) *
+            curr.qty,
         0
       )
     );
@@ -278,7 +287,7 @@ export const AppProvider = ({ children }) => {
         removeFromWishlist,
         productFilter,
         productFilterDispatch,
-
+        defaultAddress,
         flashsaleProducts,
         setFlashsaleProducts,
         isFilterBoxOpen,

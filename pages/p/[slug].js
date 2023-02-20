@@ -80,8 +80,6 @@ const ProductPage = ({
     setProductDI(pdi);
   }, [pdi, productb]);
 
-  console.log("Re-rendering?");
-
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
       <Head>
@@ -118,9 +116,9 @@ const ProductPage = ({
                     <Image
                       src={pi.product_image}
                       alt={pi.product}
-                      width={0}
-                      height={0}
-                      className="w-full h-full rounded-md object-cover object-center z-20"
+                      width={120}
+                      height={120}
+                      className="w-full h-[90px] md:h-[110px] md2:h-[120px] rounded-md object-cover object-center z-20"
                     />
                   </section>
                 ))}
