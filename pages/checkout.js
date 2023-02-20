@@ -179,6 +179,12 @@ const Checkout = ({}) => {
     onClose: () => alert("Wait! You need these items, don't go!"),
   };
   // router.push("/thankyou");   () => console.log("payment successful"),
+
+  // totalAmountAfterCoupons
+  //       ? Math.round(totalAmountAfterCoupons)
+  //       : Math.round(totalCartAmt)
+
+
   const paymentPropsIs = {
     email: userStatus && userStatus.email ? userStatus.email : "",
     amount: totalAmountAfterCoupons
@@ -190,9 +196,7 @@ const Checkout = ({}) => {
       phone: userStatus && userStatus.phone ? userStatus.phone : "",
       email: userStatus && userStatus.email ? userStatus.email : "",
       paymentType: "Instant Shipping",
-      totalAmount: totalAmountAfterCoupons
-        ? Math.round(totalAmountAfterCoupons)
-        : Math.round(totalCartAmt),
+      totalAmount: totalCartAmt ? totalCartAmt : 0,
       shippingFee: shipping ? shipping : 0,
       salesTax: salesTax ? salesTax : 0,
       discount: coupons,
