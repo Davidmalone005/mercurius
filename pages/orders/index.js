@@ -122,7 +122,6 @@ const Orders = ({}) => {
     }
   }, []);
 
-
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
       <Head>
@@ -188,7 +187,8 @@ const Orders = ({}) => {
                   asideOpen ? "" : ""
                 } overflow-x-hidden scrollbar-thin scrollbar-track-gray-300 scrollbar-thumb-primary scroll-smooth space-y-3 duration-500`}
               >
-                {userOrders === null || userOrders && userOrders.length <= 0 ? (
+                {userOrders === null ||
+                (userOrders && userOrders.length <= 0) ? (
                   <section className="w-full rounded-md mt-6 mb-12 p-4 flex flex-col items-center justify-center dark:text-black">
                     <h4 className="text-primary text-center">
                       You have no active orders...
@@ -209,9 +209,22 @@ const Orders = ({}) => {
                                 item.defaultImage.includes("placeholder") ===
                                 false
                             )
+                          : order.ordered_items.filter(
+                              (item) =>
+                                item.defaultImage.includes("placeholder") ===
+                                true
+                            )
+                          ? order.ordered_items.filter(
+                              (item) =>
+                                item.defaultImage.includes("placeholder") ===
+                                true
+                            )
                           : null;
 
                         const di = diArr ? diArr[0] : null;
+
+                        console.log(diArr);
+                        console.log(di);
 
                         const diUrl = di
                           ? "https://res.cloudinary.com/dxhq8jlxf/" +
