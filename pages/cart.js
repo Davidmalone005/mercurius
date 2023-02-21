@@ -21,7 +21,7 @@ const Cart = () => {
     removeFromWishlist,
     totalPrice,
     shipping,
-    salesTax,
+    salesTax, setSalesTax,
     numbersWithCommas,
     increaseQty,
     decreaseQty,
@@ -121,6 +121,8 @@ const Cart = () => {
   };
 
   useEffect(() => {
+    setSalesTax(cart.length * 10);
+
     if (
       totalAmountBeforeCoupons &&
       totalAmountAfterCoupons &&

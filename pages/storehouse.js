@@ -391,7 +391,10 @@ const Storehouse = () => {
                           <section className="dark:text-black">
                             Charges:{" "}
                             <span className="text-primary font-semibold font-dalek">
-                              ₦{numbersWithCommas(shipAllOrdersCharges)}
+                              ₦
+                              {numbersWithCommas(
+                                Math.round(shipAllOrdersCharges)
+                              )}
                             </span>
                           </section>
                         )}
@@ -449,7 +452,7 @@ const Storehouse = () => {
                         // const msDays = 1000 * 60 * 60 * 24;
 
                         // for testing purposes
-                        const msDays = 1000 * 60 * 2;
+                        const msDays = 1000 * 60 * 5;
 
                         let atime = now - bsd;
 
