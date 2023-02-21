@@ -17,7 +17,7 @@ export const AppProvider = ({ children }) => {
   const [totalQty, setTotalQty] = useState(0);
   const [shipping, setShipping] = useState(0);
   const [salesTax, setSalesTax] = useState(0);
-  const [totalCartAmt, setTotalCartAmt] = useState(0);
+  // const [totalCartAmt, setTotalCartAmt] = useState(0);
   const [tabbed, setTabbed] = useState(false);
   const [showPassword, setShowPassword] = useState({
     password: false,
@@ -134,13 +134,15 @@ export const AppProvider = ({ children }) => {
                     });
                 }
                 setSalesTax(appState.cart.length * 10);
-                setTotalCartAmt(totalPrice + shipping + salesTax);
+                
               }
             }
           }
         });
     }
   }, []);
+
+  // console.log(totalCartAmt)
 
   // CART FUNCTIONS
   const addToCart = (item) => {
@@ -188,6 +190,8 @@ export const AppProvider = ({ children }) => {
         0
       )
     );
+
+    
   }, [appState.cart]);
 
   // WISHLIST
@@ -226,6 +230,7 @@ export const AppProvider = ({ children }) => {
     return () => {
       setFlashsaleProducts(flashsaleProductsFilter);
     };
+
   }, [products]);
 
   const openSidebar = () => {
@@ -257,6 +262,13 @@ export const AppProvider = ({ children }) => {
   const totalAmountWithShippingNtax = Math.round(
     (totalPrice + shipping + salesTax) * 100
   );
+
+  const totalCartAmt = totalPrice + shipping + salesTax;
+
+  const totalAmountIS = totalCartAmt * 100;
+
+  
+  
 
   // Select product size
   const selectSize = (item) => {
@@ -314,10 +326,8 @@ export const AppProvider = ({ children }) => {
         productTypes,
         setProductTypes,
         selectSize,
-        totalAmountWithShippingNtax,
-storehouseTimerOn, setStorehouseTimerOn,
         totalCartAmt,
-        setTotalCartAmt,
+        totalAmountIS,
       }}
     >
       {children}

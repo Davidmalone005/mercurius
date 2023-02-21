@@ -24,9 +24,7 @@ const Checkout = ({}) => {
     tabbed,
     setTabbed,
     setUserInfo,
-    totalAmountWithShippingNtax,
-    totalCartAmt,
-    setTotalCartAmt,
+    totalCartAmt, totalAmountIS,
     defaultAddress,
   } = useAppContext();
 
@@ -47,8 +45,6 @@ const Checkout = ({}) => {
 
   const [items, setItems] = useState([]);
   const [coupons, setCoupons] = useState([]);
-
-  setSalesTax(salesTaxCost);
 
   const [totalAmountAfterCoupons, setTotalAmountAfterCoupons] = useState(null);
   const [totalAmountBeforeCoupons, setTotalAmountBeforeCoupons] =
@@ -121,13 +117,9 @@ const Checkout = ({}) => {
 
         setItems(itemsArr);
       }
-
-      // const allAddresses = fetch(
-      //   "https://mercurius-backend.up.railway.app/api/addresses/"
-      // )
-      //   .then((res) => res.json())
-      //   .then((res) => {});
     }
+
+    setSalesTax(salesTaxCost);
   }, []);
 
   useEffect(() => {
@@ -142,6 +134,7 @@ const Checkout = ({}) => {
           JSON.parse(window.localStorage.getItem("TotalAmountBeforeCoupons"))
         );
       }
+
     }
   }, []);
 
@@ -184,19 +177,18 @@ const Checkout = ({}) => {
   //       ? Math.round(totalAmountAfterCoupons)
   //       : Math.round(totalCartAmt)
 
+  
 
   const paymentPropsIs = {
     email: userStatus && userStatus.email ? userStatus.email : "",
-    amount: totalAmountAfterCoupons
-      ? totalAmountAfterCoupons * 100
-      : totalCartAmt * 100,
+    amount: totalAmountIS,
     metadata: {
       user_id: userStatus && userStatus.id ? userStatus.id : "",
       name: userStatus && userStatus.fullname ? userStatus.fullname : "",
       phone: userStatus && userStatus.phone ? userStatus.phone : "",
       email: userStatus && userStatus.email ? userStatus.email : "",
       paymentType: "Instant Shipping",
-      totalAmount: totalCartAmt ? totalCartAmt : 0,
+      totalAmount: Math.round(totalCartAmt),
       shippingFee: shipping ? shipping : 0,
       salesTax: salesTax ? salesTax : 0,
       discount: coupons,
@@ -208,11 +200,34 @@ const Checkout = ({}) => {
     // callback_url: "http://localhost:3000/thankyou/",
     onSuccess: () => console.log("payment successful"),
     onClose: () => alert("Wait! You need these items, don't go!"),
+
+    // email: userStatus && userStatus.email ? userStatus.email : "",
+    // amount: totalAmountAfterCoupons
+    //   ? totalAmountAfterCoupons * 100
+    //   : totalCartAmt * 100,
+    // metadata: {
+    //   user_id: userStatus && userStatus.id ? userStatus.id : "",
+    //   name: userStatus && userStatus.fullname ? userStatus.fullname : "",
+    //   phone: userStatus && userStatus.phone ? userStatus.phone : "",
+    //   email: userStatus && userStatus.email ? userStatus.email : "",
+    //   paymentType: "Instant Shipping",
+    //   totalAmount: totalCartAmt ? totalCartAmt : 0,
+    //   shippingFee: shipping ? shipping : 0,
+    //   salesTax: salesTax ? salesTax : 0,
+    //   discount: coupons,
+    //   shippingAddress: defaultAddress,
+    //   cart: items,
+    // },
+    // publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
+    // text: "Pay for Instant Shipping",
+    // // callback_url: "http://localhost:3000/thankyou/",
+    // onSuccess: () => console.log("payment successful"),
+    // onClose: () => alert("Wait! You need these items, don't go!"),
   };
 
-  console.log(totalAmountBeforeCoupons);
-  console.log(totalAmountAfterCoupons);
-  console.log(totalCartAmt);
+  // console.log(totalAmountBeforeCoupons);
+  // console.log(totalAmountAfterCoupons);
+  // console.log(totalCartAmt);
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

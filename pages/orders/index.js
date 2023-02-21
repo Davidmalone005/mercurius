@@ -228,8 +228,6 @@ const Orders = ({}) => {
                             di.defaultImage.replace(/ /g, "%20")
                           : "#";
 
-                          console.log(diUrl)
-
                         const paidDate = new Date(
                           order.paid_at
                         ).toLocaleString();

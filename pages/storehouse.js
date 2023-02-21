@@ -144,13 +144,19 @@ const Storehouse = () => {
 
                 let averageOverdue = 0;
 
+                // console.log(shos);
+
                 const overduesArr = [];
                 for (let i of shos) {
                   let bs = i.storehouse_order[0].billing_starts;
+
                   let bsd = new Date(bs).getTime();
+
                   let now = Date.now();
-                  const msDays = 1000 * 60 * 60 * 24;
+                  // const msDays = 1000 * 60 * 60 * 24;
+                  const msDays = 1000 * 60 * 2;
                   let atime = now - bsd;
+
                   let overdue = Math.round(atime / msDays);
 
                   if (overdue > 0) {
@@ -161,7 +167,8 @@ const Storehouse = () => {
                 if (overduesArr.length > 0) {
                   const numOfOverdues = overduesArr.length;
                   let sumOfOverdues = 0;
-                  for (let o in overduesArr) {
+
+                  for (let o of overduesArr) {
                     sumOfOverdues = sumOfOverdues + o;
                   }
 
@@ -407,7 +414,6 @@ const Storehouse = () => {
 
                     {storehouseOrders &&
                       storehouseOrders.map((order) => {
-
                         const diArr = order.ordered_items
                           ? order.ordered_items.filter(
                               (item) =>
@@ -446,7 +452,7 @@ const Storehouse = () => {
                         const msDays = 1000 * 60 * 2;
 
                         let atime = now - bsd;
-                        
+
                         // let overdue = Math.round(atime / msDays);
 
                         // for testing purposes

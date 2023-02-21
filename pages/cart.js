@@ -21,14 +21,11 @@ const Cart = () => {
     removeFromWishlist,
     totalPrice,
     shipping,
-    setShipping,
     salesTax,
-    setSalesTax,
     numbersWithCommas,
     increaseQty,
     decreaseQty,
     totalCartAmt,
-    setTotalCartAmt,
   } = useAppContext();
 
   const [couponAlert, setCouponAlert] = useState(null);
@@ -135,9 +132,13 @@ const Cart = () => {
     }
   }, []);
 
-  console.log(totalAmountBeforeCoupons);
-  console.log(totalAmountAfterCoupons);
-  console.log(totalCartAmt);
+  // useEffect(() => {
+  //   setTotalCartAmt(totalPrice + shipping + salesTax);
+  // }, [shipping, totalPrice, salesTax]);
+
+  // console.log(totalAmountBeforeCoupons);
+  // console.log(totalAmountAfterCoupons);
+  // console.log(totalCartAmt);
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
@@ -305,15 +306,13 @@ const Cart = () => {
                 <section className="border-t-2 border-b-2 border-black mt-2 md:mt-6 py-2 md:py-4 flex items-center justify-between">
                   <span>Total</span>
                   <span className="font-semibold">
-                    {/* There is a bug with this conditionals below.  */}₦
-                    {numbersWithCommas(
+                    {/* There is a bug with this conditionals below.  */}
+                    {/* ₦{numbersWithCommas(
                       totalAmountAfterCoupons
                         ? totalAmountAfterCoupons
                         : totalCartAmt
-                    )}
-                    {/* ₦
-                    {numbersWithCommas(totalCartAmt
                     )} */}
+                    ₦{numbersWithCommas(totalCartAmt ? totalCartAmt : 0)}
                   </span>
                 </section>
               </section>
