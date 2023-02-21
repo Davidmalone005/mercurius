@@ -55,6 +55,10 @@ const StorehouseTimer = ({ billing_starts }) => {
       updateRemainingTime(time);
     }, 1000);
 
+    setTimeout(() => {
+      router.reload(window.location.pathname);
+    }, 1000);
+
     return () => clearInterval(intervalId);
   }, [time]);
 
