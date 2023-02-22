@@ -173,6 +173,8 @@ const Checkout = ({}) => {
     ? totalAmountAfterCoupons * 100
     : totalAmountIS;
 
+    const couponStatus = couponCodes.length > 0 ? true : false;
+
   const paymentPropsIs = {
     email: userStatus && userStatus.email ? userStatus.email : "",
     amount: taacKobo,
@@ -188,7 +190,7 @@ const Checkout = ({}) => {
       discount: couponCodes,
       shippingAddress: defaultAddress,
       cart: items,
-      used_coupon: couponCodes.length > 0 ? true : false,
+      used_coupon: couponStatus,
     },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
     text: "Pay for Instant Shipping",
