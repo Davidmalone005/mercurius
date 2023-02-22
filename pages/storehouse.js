@@ -571,7 +571,7 @@ const Storehouse = () => {
                             </section>
 
                             <section className="bg-red-600 text-white w-full p-2 flex items-center justify-center">
-                              {bsd >= now ? (
+                              {bsd > now ? (
                                 <section className="flex items-center justify-center">
                                   FREE Storekeeping Ends In:
                                   <StorehouseTimer

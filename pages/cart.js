@@ -38,6 +38,7 @@ const Cart = () => {
   } = useAppContext();
 
   const [ccArr, setCcArr] = useState([]);
+  const [ccArr2, setCcArr2] = useState([]);
 
   // Form Dependencies
   const {
@@ -48,8 +49,6 @@ const Cart = () => {
   } = useForm({
     defaultValues: {},
   });
-
-  
 
   const onSubmit = async (data) => {
     data.totalCart = totalCartAmt;
@@ -71,25 +70,28 @@ const Cart = () => {
           } else if (resData.is_used === true) {
             toast.error("Coupon code has been USED!!");
           } else {
-            setCcArr([...ccArr, data.coupon_code]);
-            // ccArr.push(data.coupon_code);
-            let cartAmt = totalAmountAfterCoupons
-              ? totalAmountAfterCoupons
-              : totalCartAmt;
+            if (ccArr2 && ccArr2.find((f) => f.code === data.coupon_code)) {
+              toast.error("Coupon code has been USED!!");
+            } else {
+              setCcArr2([...ccArr2, { code: data.coupon_code, used: true }]);
+              setCcArr([...ccArr, data.coupon_code]);
+              // ccArr.push(data.coupon_code);
+              let cartAmt = totalAmountAfterCoupons
+                ? totalAmountAfterCoupons
+                : totalCartAmt;
 
-            const po = resData.percentage_off / 100;
-            const poAmt = po * cartAmt;
-            const poTotal = cartAmt - poAmt;
+              const po = resData.percentage_off / 100;
+              const poAmt = po * cartAmt;
+              const poTotal = cartAmt - poAmt;
 
-            setTotalAmountBeforeCoupons(totalCartAmt);
-            setTotalAmountAfterCoupons(Math.round(poTotal));
-            setCouponAlert(
-              `Coupon applied! Pay ₦${numbersWithCommas(Math.round(poTotal))}`
-            );
+              setTotalAmountBeforeCoupons(totalCartAmt);
+              setTotalAmountAfterCoupons(Math.round(poTotal));
+              setCouponAlert(
+                `Coupon applied! Pay ₦${numbersWithCommas(Math.round(poTotal))}`
+              );
 
-            toast.success(`Coupon applied!`);
-
-            // router.reload(window.location.pathname);
+              toast.success(`Coupon applied!`);
+            }
           }
         });
     } catch (err) {
@@ -105,7 +107,6 @@ const Cart = () => {
   useEffect(() => {
     setCouponCodes(ccArr);
   }, [ccArr]);
-
 
   useEffect(() => {
     if (totalAmountBeforeCoupons && totalAmountAfterCoupons && totalCartAmt) {
@@ -127,11 +128,6 @@ const Cart = () => {
       }
     }
   }, [totalCartAmt]);
-
-  // useEffect(() => {
-  //   setTotalCartAmt(totalPrice + shipping + salesTax);
-  // }, [shipping, totalPrice, salesTax]);
-
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

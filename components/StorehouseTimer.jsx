@@ -55,16 +55,12 @@ const StorehouseTimer = ({ billing_starts }) => {
       updateRemainingTime(time);
     }, 1000);
 
-if (time < 1) {
-    router.reload(window.location.pathname);
-  }
+    if (time < 2) {
+      router.reload(window.location.pathname);
+    }
 
     return () => clearInterval(intervalId);
   }, [time]);
-
-  
-
-
 
   return (
     <section className="ml-4 font-dalek font-bold text-lg">
