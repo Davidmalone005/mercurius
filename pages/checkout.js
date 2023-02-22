@@ -173,7 +173,7 @@ const Checkout = ({}) => {
     ? totalAmountAfterCoupons * 100
     : totalAmountIS;
 
-    const couponStatus = couponCodes.length > 0 ? true : false;
+    const couponStatus = couponCodes && couponCodes.length > 0 ? true : false;
 
   const paymentPropsIs = {
     email: userStatus && userStatus.email ? userStatus.email : "",
