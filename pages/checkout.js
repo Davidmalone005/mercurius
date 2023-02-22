@@ -54,14 +54,12 @@ const Checkout = ({}) => {
   const [coupons, setCoupons] = useState([]);
 
   const disableCoupons = (ccArr) => {
-
     const options = {
       method: "GET",
       headers: { "Content-type": "application/json" },
     };
 
     for (let cc of ccArr) {
-
       fetch(
         `https://mercurius-backend.up.railway.app/api/orders/coupons/${cc}/disable`,
         options
@@ -142,7 +140,6 @@ const Checkout = ({}) => {
     }
 
     setSalesTax(salesTaxCost);
-
   }, []);
 
   const paymentPropsSts = {
@@ -163,17 +160,17 @@ const Checkout = ({}) => {
     },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
     text: "Pay for Items",
-    // callback_url: "http://localhost:3000/thankyou/",
-    onSuccess: () => console.log("payment successful"),
+    onSuccess: () => {
+      alert("Payment successful. Orders have been saved to Storehouse. ")
+      router.push("/thankyou");
+    },
     onClose: () => alert("Wait! You need these items, don't go!"),
   };
-  // router.push("/thankyou");   () => console.log("payment successful"),
-
   const taacKobo = totalAmountAfterCoupons
     ? totalAmountAfterCoupons * 100
     : totalAmountIS;
 
-    const couponStatus = couponCodes && couponCodes.length > 0 ? true : false;
+  const couponStatus = couponCodes && couponCodes.length > 0 ? true : false;
 
   const paymentPropsIs = {
     email: userStatus && userStatus.email ? userStatus.email : "",
@@ -194,10 +191,10 @@ const Checkout = ({}) => {
     },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
     text: "Pay for Instant Shipping",
-    // callback_url: "http://localhost:3000/thankyou/",
     onSuccess: () => {
       disableCoupons(couponCodes);
-      console.log("payment successful");
+      alert("Payment successful. Orders have been received and will be delivered to you ASAP.");
+      router.push("/thankyou");
     },
     onClose: () => alert("Wait! You need these items, don't go!"),
   };
