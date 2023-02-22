@@ -146,6 +146,7 @@ const OrderDetails = () => {
     }
   }, []);
 
+
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
       <Head>
@@ -315,7 +316,12 @@ const OrderDetails = () => {
                                     Amount
                                   </section>
                                   <section className="text-md">
-                                    ₦{numbersWithCommas(item.price)}
+                                    ₦
+                                    {numbersWithCommas(
+                                      item.flashsale_price > 0
+                                        ? item.flashsale_price
+                                        : item.price
+                                    )}
                                   </section>
                                 </section>
                               </section>
@@ -342,6 +348,10 @@ const OrderDetails = () => {
 
                         <section className="w-full text-[#868686] px-5 mb-3 md:mb-5 flex items-center justify-start">
                           Total: ₦{numbersWithCommas(order.amount)}
+                        </section>
+
+                        <section className="w-full text-[#868686] px-5 mb-3 md:mb-5 flex items-center justify-start">
+                          Used Coupon: {order.used_coupon ? "Yes" : "No"}
                         </section>
                       </section>
 

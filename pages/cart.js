@@ -21,33 +21,23 @@ const Cart = () => {
     removeFromWishlist,
     totalPrice,
     shipping,
-    salesTax, setSalesTax,
+    salesTax,
+    setSalesTax,
     numbersWithCommas,
     increaseQty,
     decreaseQty,
     totalCartAmt,
+    totalAmountBeforeCoupons,
+    setTotalAmountBeforeCoupons,
+    totalAmountAfterCoupons,
+    setTotalAmountAfterCoupons,
+    couponAlert,
+    setCouponAlert,
+    setCouponCodes,
+    couponCodes,
   } = useAppContext();
 
-  const [couponAlert, setCouponAlert] = useState(null);
-  const [totalAmountAfterCoupons, setTotalAmountAfterCoupons] = useState(null);
-  const [totalAmountBeforeCoupons, setTotalAmountBeforeCoupons] =
-    useState(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" || typeof window !== null) {
-      if (window.localStorage.getItem("TotalAmountAfterCoupons")) {
-        setTotalAmountAfterCoupons(
-          JSON.parse(window.localStorage.getItem("TotalAmountAfterCoupons"))
-        );
-        setCouponAlert(window.localStorage.getItem("couponAlert"));
-      }
-      if (window.localStorage.getItem("TotalAmountBeforeCoupons")) {
-        setTotalAmountBeforeCoupons(
-          JSON.parse(window.localStorage.getItem("TotalAmountBeforeCoupons"))
-        );
-      }
-    }
-  }, []);
+  const [ccArr, setCcArr] = useState([]);
 
   // Form Dependencies
   const {
@@ -59,8 +49,11 @@ const Cart = () => {
     defaultValues: {},
   });
 
+  
+
   const onSubmit = async (data) => {
     data.totalCart = totalCartAmt;
+
     try {
       const options = {
         method: "GET",
@@ -78,40 +71,25 @@ const Cart = () => {
           } else if (resData.is_used === true) {
             toast.error("Coupon code has been USED!!");
           } else {
+            setCcArr([...ccArr, data.coupon_code]);
+            // ccArr.push(data.coupon_code);
             let cartAmt = totalAmountAfterCoupons
               ? totalAmountAfterCoupons
               : totalCartAmt;
+
             const po = resData.percentage_off / 100;
             const poAmt = po * cartAmt;
             const poTotal = cartAmt - poAmt;
 
-            const options = {
-              method: "GET",
-              headers: { "Content-type": "application/json" },
-            };
+            setTotalAmountBeforeCoupons(totalCartAmt);
+            setTotalAmountAfterCoupons(Math.round(poTotal));
+            setCouponAlert(
+              `Coupon applied! Pay ₦${numbersWithCommas(Math.round(poTotal))}`
+            );
 
-            fetch(
-              `https://mercurius-backend.up.railway.app/api/orders/coupons/${data.coupon_code}/disable`,
-              options
-            )
-              .then((res) => res.json())
-              .then((resData) => {
-                if (resData.status) {
-                  setTotalAmountAfterCoupons(Math.round(poTotal));
-                  setCouponAlert(`Coupon applied!`);
-                  window.localStorage.setItem(
-                    "TotalAmountAfterCoupons",
-                    Math.round(poTotal)
-                  );
-                  window.localStorage.setItem(
-                    "TotalAmountBeforeCoupons",
-                    Math.round(totalCartAmt)
-                  );
-                  window.localStorage.setItem("couponAlert", `Coupon applied!`);
-                  toast.success(`Coupon applied!`);
-                  router.reload(window.location.pathname);
-                }
-              });
+            toast.success(`Coupon applied!`);
+
+            // router.reload(window.location.pathname);
           }
         });
     } catch (err) {
@@ -122,25 +100,38 @@ const Cart = () => {
 
   useEffect(() => {
     setSalesTax(cart.length * 10);
+  }, []);
 
-    if (
-      totalAmountBeforeCoupons &&
-      totalAmountAfterCoupons &&
-      totalCartAmt !== 0
-    ) {
-      if (totalAmountBeforeCoupons !== totalCartAmt) {
-        alert("Order has changed after coupon was applied!");
+  useEffect(() => {
+    setCouponCodes(ccArr);
+  }, [ccArr]);
+
+
+  useEffect(() => {
+    if (totalAmountBeforeCoupons && totalAmountAfterCoupons && totalCartAmt) {
+      if (
+        totalAmountBeforeCoupons
+          ? totalAmountBeforeCoupons
+          : 0 !== totalCartAmt
+          ? totalCartAmt
+          : 0
+      ) {
+        alert("Order has changed after coupon was applied! Coupon is void.");
+        setTotalAmountAfterCoupons(null);
+        setTotalAmountBeforeCoupons(null);
+        setCouponAlert(null);
+
+        window.localStorage.removeItem("TotalAmountAfterCoupons");
+        window.localStorage.removeItem("TotalAmountBeforeCoupons");
+        window.localStorage.removeItem("couponAlert");
       }
     }
-  }, []);
+  }, [totalCartAmt]);
 
   // useEffect(() => {
   //   setTotalCartAmt(totalPrice + shipping + salesTax);
   // }, [shipping, totalPrice, salesTax]);
 
-  // console.log(totalAmountBeforeCoupons);
-  // console.log(totalAmountAfterCoupons);
-  // console.log(totalCartAmt);
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">

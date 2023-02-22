@@ -134,7 +134,6 @@ export const AppProvider = ({ children }) => {
                     });
                 }
                 setSalesTax(appState.cart.length * 10);
-                
               }
             }
           }
@@ -190,8 +189,6 @@ export const AppProvider = ({ children }) => {
         0
       )
     );
-
-    
   }, [appState.cart]);
 
   // WISHLIST
@@ -230,7 +227,6 @@ export const AppProvider = ({ children }) => {
     return () => {
       setFlashsaleProducts(flashsaleProductsFilter);
     };
-
   }, [products]);
 
   const openSidebar = () => {
@@ -267,15 +263,36 @@ export const AppProvider = ({ children }) => {
 
   const totalAmountIS = totalCartAmt * 100;
 
-  
-  
+  const [couponAlert, setCouponAlert] = useState(null);
+  const [totalAmountAfterCoupons, setTotalAmountAfterCoupons] = useState(null);
+  const [totalAmountBeforeCoupons, setTotalAmountBeforeCoupons] =
+    useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" || typeof window !== null) {
+      if (window.localStorage.getItem("TotalAmountAfterCoupons")) {
+        setTotalAmountAfterCoupons(
+          JSON.parse(window.localStorage.getItem("TotalAmountAfterCoupons"))
+        );
+        setCouponAlert(window.localStorage.getItem("couponAlert"));
+      }
+      if (window.localStorage.getItem("TotalAmountBeforeCoupons")) {
+        setTotalAmountBeforeCoupons(
+          JSON.parse(window.localStorage.getItem("TotalAmountBeforeCoupons"))
+        );
+      }
+      if (window.localStorage.getItem("couponAlert")) {
+        setCouponAlert(window.localStorage.getItem("couponAlert"));
+      }
+    }
+  }, []);
 
   // Select product size
   const selectSize = (item) => {
     appStateDispatch({ type: "SELECT_SIZE", payload: item });
   };
 
-  const [storehouseTimerOn, setStorehouseTimerOn] = useState(false)
+  const [couponCodes, setCouponCodes] = useState(null);
 
   return (
     <AppContext.Provider
@@ -328,6 +345,15 @@ export const AppProvider = ({ children }) => {
         selectSize,
         totalCartAmt,
         totalAmountIS,
+
+        totalAmountBeforeCoupons,
+        setTotalAmountBeforeCoupons,
+        totalAmountAfterCoupons,
+        setTotalAmountAfterCoupons,
+        couponAlert,
+        setCouponAlert,
+        setCouponCodes,
+        couponCodes,
       }}
     >
       {children}

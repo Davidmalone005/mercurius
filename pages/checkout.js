@@ -24,8 +24,15 @@ const Checkout = ({}) => {
     tabbed,
     setTabbed,
     setUserInfo,
-    totalCartAmt, totalAmountIS,
+    totalCartAmt,
+    totalAmountIS,
     defaultAddress,
+    totalAmountAfterCoupons,
+    couponCodes,
+    setCouponCodes,
+    setTotalAmountAfterCoupons,
+    setTotalAmountBeforeCoupons,
+    setCouponAlert,
   } = useAppContext();
 
   const [userStatus, setUserStatus] = useState(null);
@@ -46,9 +53,29 @@ const Checkout = ({}) => {
   const [items, setItems] = useState([]);
   const [coupons, setCoupons] = useState([]);
 
-  const [totalAmountAfterCoupons, setTotalAmountAfterCoupons] = useState(null);
-  const [totalAmountBeforeCoupons, setTotalAmountBeforeCoupons] =
-    useState(null);
+  const disableCoupons = (ccArr) => {
+
+    const options = {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    };
+
+    for (let cc of ccArr) {
+
+      fetch(
+        `https://mercurius-backend.up.railway.app/api/orders/coupons/${cc}/disable`,
+        options
+      )
+        .then((res) => res.json())
+        .then((resData) => {
+          if (resData.status) {
+            setTotalAmountAfterCoupons(null);
+            setTotalAmountBeforeCoupons(null);
+            setCouponAlert(null);
+          }
+        });
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined" || typeof window !== null) {
@@ -80,12 +107,6 @@ const Checkout = ({}) => {
             setUserStatus(userStatusRes);
             return userStatusRes;
           });
-
-        if (window.localStorage.getItem("TotalAmountAfterCoupons")) {
-          setTotalAmountAfterCoupons(
-            JSON.parse(window.localStorage.getItem("TotalAmountAfterCoupons"))
-          );
-        }
       }
 
       if (window.localStorage.getItem("cart")) {
@@ -109,6 +130,7 @@ const Checkout = ({}) => {
             name: item.name,
             description: item.description,
             price: item.price,
+            flashsale_price: item.flashsale_price,
             qty: item.qty,
             size: item.size ? item.size : "",
             defaultImage: fiUrl,
@@ -120,34 +142,7 @@ const Checkout = ({}) => {
     }
 
     setSalesTax(salesTaxCost);
-  }, []);
 
-  useEffect(() => {
-    if (typeof window !== "undefined" || typeof window !== null) {
-      if (window.localStorage.getItem("TotalAmountAfterCoupons")) {
-        setTotalAmountAfterCoupons(
-          JSON.parse(window.localStorage.getItem("TotalAmountAfterCoupons"))
-        );
-      }
-      if (window.localStorage.getItem("TotalAmountBeforeCoupons")) {
-        setTotalAmountBeforeCoupons(
-          JSON.parse(window.localStorage.getItem("TotalAmountBeforeCoupons"))
-        );
-      }
-
-    }
-  }, []);
-
-  useEffect(() => {
-    if (
-      totalAmountBeforeCoupons &&
-      totalAmountAfterCoupons &&
-      totalCartAmt !== 0
-    ) {
-      if (totalAmountBeforeCoupons !== totalCartAmt) {
-        alert("Order has changed after coupon was applied!");
-      }
-    }
   }, []);
 
   const paymentPropsSts = {
@@ -164,6 +159,7 @@ const Checkout = ({}) => {
       salesTax: 0,
       discount: coupons,
       cart: items,
+      used_coupon: false,
     },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
     text: "Pay for Items",
@@ -173,15 +169,13 @@ const Checkout = ({}) => {
   };
   // router.push("/thankyou");   () => console.log("payment successful"),
 
-  // totalAmountAfterCoupons
-  //       ? Math.round(totalAmountAfterCoupons)
-  //       : Math.round(totalCartAmt)
-
-  
+  const taacKobo = totalAmountAfterCoupons
+    ? totalAmountAfterCoupons * 100
+    : totalAmountIS;
 
   const paymentPropsIs = {
     email: userStatus && userStatus.email ? userStatus.email : "",
-    amount: totalAmountIS,
+    amount: taacKobo,
     metadata: {
       user_id: userStatus && userStatus.id ? userStatus.id : "",
       name: userStatus && userStatus.fullname ? userStatus.fullname : "",
@@ -191,43 +185,20 @@ const Checkout = ({}) => {
       totalAmount: Math.round(totalCartAmt),
       shippingFee: shipping ? shipping : 0,
       salesTax: salesTax ? salesTax : 0,
-      discount: coupons,
+      discount: couponCodes,
       shippingAddress: defaultAddress,
       cart: items,
+      used_coupon: couponCodes.length > 0 ? true : false,
     },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
     text: "Pay for Instant Shipping",
     // callback_url: "http://localhost:3000/thankyou/",
-    onSuccess: () => console.log("payment successful"),
+    onSuccess: () => {
+      disableCoupons(couponCodes);
+      console.log("payment successful");
+    },
     onClose: () => alert("Wait! You need these items, don't go!"),
-
-    // email: userStatus && userStatus.email ? userStatus.email : "",
-    // amount: totalAmountAfterCoupons
-    //   ? totalAmountAfterCoupons * 100
-    //   : totalCartAmt * 100,
-    // metadata: {
-    //   user_id: userStatus && userStatus.id ? userStatus.id : "",
-    //   name: userStatus && userStatus.fullname ? userStatus.fullname : "",
-    //   phone: userStatus && userStatus.phone ? userStatus.phone : "",
-    //   email: userStatus && userStatus.email ? userStatus.email : "",
-    //   paymentType: "Instant Shipping",
-    //   totalAmount: totalCartAmt ? totalCartAmt : 0,
-    //   shippingFee: shipping ? shipping : 0,
-    //   salesTax: salesTax ? salesTax : 0,
-    //   discount: coupons,
-    //   shippingAddress: defaultAddress,
-    //   cart: items,
-    // },
-    // publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
-    // text: "Pay for Instant Shipping",
-    // // callback_url: "http://localhost:3000/thankyou/",
-    // onSuccess: () => console.log("payment successful"),
-    // onClose: () => alert("Wait! You need these items, don't go!"),
   };
-
-  // console.log(totalAmountBeforeCoupons);
-  // console.log(totalAmountAfterCoupons);
-  // console.log(totalCartAmt);
 
   return (
     <section className="w-[85%] mx-auto max-w-screen-xl">
@@ -351,15 +322,16 @@ const Checkout = ({}) => {
                       </button>
                     </Link>
 
-                    <p
-                      className={
-                        totalAmountAfterCoupons &&
-                        `bg-green-600 text-white dark:text-white w-full px-3 py-2 rounded-md text-center font-bold mt-4`
-                      }
-                    >
-                      With Coupons: ₦
-                      {numbersWithCommas(totalAmountAfterCoupons)}
-                    </p>
+                    {totalAmountAfterCoupons && (
+                      <p
+                        className={
+                          totalAmountAfterCoupons &&
+                          `bg-green-600 text-white dark:text-white w-full px-3 py-2 rounded-md text-center font-bold mt-4`
+                        }
+                      >
+                        You PAY: ₦{numbersWithCommas(totalAmountAfterCoupons)}
+                      </p>
+                    )}
                   </section>
                 </section>
               )}
