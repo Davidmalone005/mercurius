@@ -62,7 +62,7 @@ const StorehouseTimer = ({ billing_starts }) => {
     router.reload(window.location.pathname);
   }
 
-alert("Storehouse");
+
 
   return (
     <section className="ml-4 font-dalek font-bold text-lg">
