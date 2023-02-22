@@ -58,9 +58,11 @@ const StorehouseTimer = ({ billing_starts }) => {
     return () => clearInterval(intervalId);
   }, [time]);
 
-  if (time < 1) {
+  if (time < 2) {
     router.reload(window.location.pathname);
   }
+
+alert("Storehouse");
 
   return (
     <section className="ml-4 font-dalek font-bold text-lg">
