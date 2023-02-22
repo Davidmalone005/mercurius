@@ -173,7 +173,7 @@ const Storehouse = () => {
 
                   let overdue = Math.round(atime / msDays);
                   // console.log(overdue);
-                  
+
                   if (overdue > 0) {
                     overduesArr.push(overdue);
                   }
@@ -188,9 +188,7 @@ const Storehouse = () => {
                   }
 
                   averageOverdue = sumOfOverdues / numOfOverdues;
-                  
                 }
-
 
                 const shipAllOrdersItemCost = totalNumOfItems * 100;
 
@@ -313,9 +311,6 @@ const Storehouse = () => {
     }
   }, []);
 
-  // console.log(shipAllOrdersCharges2);
-  // console.log(shipAllOrdersCharges);
-
   let shipAllOrders = {};
 
   if (allOrderIdsArr) {
@@ -335,7 +330,7 @@ const Storehouse = () => {
         salesTax: salesTax2 ? salesTax2 : 0,
         storehouse_items: allOrderIdsArr,
       },
-      publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
+      publicKey: process.env.NEXT_PUBLIC_PAYSTACK_LIVE_PUBLIC_KEY,
       text: "Ship All Orders",
       // // callback_url: "http://localhost:3000/thankyou/",
       onSuccess: () => router.reload(window.location.pathname),
@@ -565,8 +560,7 @@ const Storehouse = () => {
                             storehouse_items: [],
                           },
                           publicKey:
-                            process.env
-                              .NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
+                            process.env.NEXT_PUBLIC_PAYSTACK_LIVE_PUBLIC_KEY,
                           text: "Ship Order",
                           // // callback_url: "http://localhost:3000/thankyou/",
                           onSuccess: () =>

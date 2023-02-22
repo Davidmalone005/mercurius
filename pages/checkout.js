@@ -158,7 +158,7 @@ const Checkout = ({}) => {
       cart: items,
       used_coupon: false,
     },
-    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_LIVE_PUBLIC_KEY,
     text: "Pay for Items",
     onSuccess: () => {
       alert("Payment successful. Orders have been saved to Storehouse. ")
@@ -189,7 +189,7 @@ const Checkout = ({}) => {
       cart: items,
       used_coupon: couponStatus,
     },
-    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_LIVE_PUBLIC_KEY,
     text: "Pay for Instant Shipping",
     onSuccess: () => {
       disableCoupons(couponCodes);
