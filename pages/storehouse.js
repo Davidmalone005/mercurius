@@ -452,7 +452,7 @@ const Storehouse = () => {
                         // const msDays = 1000 * 60 * 60 * 24;
 
                         // for testing purposes
-                        const msDays = 1000 * 60 * 5;
+                        const msDays = 1000 * 60 * 1.5;
 
                         let atime = now - bsd;
 
