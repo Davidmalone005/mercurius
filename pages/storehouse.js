@@ -32,9 +32,11 @@ const Storehouse = () => {
   const [storehouseOrders, setStorehouseOrders] = useState(null);
   const [shippingFee, setShippingFee] = useState(null);
   const [salesTax, setSalesTax] = useState(null);
+  const [salesTax2, setSalesTax2] = useState(null);
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [shippingDestination, setShippingDestination] = useState(null);
   const [shipAllOrdersCharges, setShipAllOrdersCharges] = useState(null);
+  const [shipAllOrdersCharges2, setShipAllOrdersCharges2] = useState(null);
   const [allOrderIdsArr, setAllOrderIdsArr] = useState(null);
 
   const sidebarLinks = [
@@ -130,7 +132,20 @@ const Storehouse = () => {
                 setUserOrders(res);
                 setStorehouseOrders(shos);
 
+                const ordersToBeShipped = [];
+
+                if (shos.length > 4) {
+                  for (let x = 0; x < 4; x++) {
+                    ordersToBeShipped.push(shos[x]);
+                  }
+                } else {
+                  for (let x = 0; x < shos.length; x++) {
+                    ordersToBeShipped.push(shos[x]);
+                  }
+                }
+
                 const numOfItems = [];
+
                 for (let ord of shos) {
                   numOfItems.push(ord.ordered_items.length);
                 }
@@ -144,9 +159,8 @@ const Storehouse = () => {
 
                 let averageOverdue = 0;
 
-                // console.log(shos);
-
                 const overduesArr = [];
+
                 for (let i of shos) {
                   let bs = i.storehouse_order[0].billing_starts;
 
@@ -158,7 +172,8 @@ const Storehouse = () => {
                   let atime = now - bsd;
 
                   let overdue = Math.round(atime / msDays);
-
+                  // console.log(overdue);
+                  
                   if (overdue > 0) {
                     overduesArr.push(overdue);
                   }
@@ -173,7 +188,9 @@ const Storehouse = () => {
                   }
 
                   averageOverdue = sumOfOverdues / numOfOverdues;
+                  
                 }
+
 
                 const shipAllOrdersItemCost = totalNumOfItems * 100;
 
@@ -182,10 +199,61 @@ const Storehouse = () => {
 
                 setShipAllOrdersCharges(shipAllOrdersTotalItemCost);
 
-                if (shos.length > 0) {
+                const numOfItems2 = [];
+
+                for (let ord of ordersToBeShipped) {
+                  numOfItems2.push(ord.ordered_items.length);
+                }
+
+                let totalNumOfItems2 = 0;
+                for (let i in numOfItems2) {
+                  totalNumOfItems2 = totalNumOfItems2 + numOfItems2[i];
+                }
+
+                setSalesTax2(totalNumOfItems2 * 10);
+
+                let averageOverdue2 = 0;
+
+                const overduesArr2 = [];
+                for (let i of ordersToBeShipped) {
+                  let bs = i.storehouse_order[0].billing_starts;
+
+                  let bsd = new Date(bs).getTime();
+
+                  let now = Date.now();
+                  // const msDays = 1000 * 60 * 60 * 24;
+                  const msDays = 1000 * 60 * 2;
+                  let atime = now - bsd;
+
+                  let overdue = Math.round(atime / msDays);
+
+                  if (overdue > 0) {
+                    overduesArr2.push(overdue);
+                  }
+                }
+
+                if (overduesArr2.length > 0) {
+                  const numOfOverdues2 = overduesArr2.length;
+                  let sumOfOverdues2 = 0;
+
+                  for (let o of overduesArr2) {
+                    sumOfOverdues2 = sumOfOverdues2 + o;
+                  }
+
+                  averageOverdue2 = sumOfOverdues2 / numOfOverdues2;
+                }
+
+                const shipAllOrdersItemCost2 = totalNumOfItems2 * 100;
+
+                const shipAllOrdersTotalItemCost2 =
+                  shipAllOrdersItemCost2 * averageOverdue2;
+
+                setShipAllOrdersCharges2(shipAllOrdersTotalItemCost2);
+
+                if (ordersToBeShipped.length > 0) {
                   let allOrderIds = [];
 
-                  for (let s of shos) {
+                  for (let s of ordersToBeShipped) {
                     allOrderIds.push(s.storehouse_order[0].id);
                   }
 
@@ -245,35 +313,26 @@ const Storehouse = () => {
     }
   }, []);
 
+  // console.log(shipAllOrdersCharges2);
+  // console.log(shipAllOrdersCharges);
+
   let shipAllOrders = {};
 
   if (allOrderIdsArr) {
     shipAllOrders = {
       email: userStatus && userStatus.email ? userStatus.email : "",
-      amount: (shippingFee + salesTax + shipAllOrdersCharges) * 100,
+      amount: (shippingFee + salesTax2 + shipAllOrdersCharges2) * 100,
       metadata: {
-        // user_id: userStatus && userStatus.id ? userStatus.id : "",
-        // order_id: order.id,
-        // storehouse_order_id: order.storehouse_order[0].id,
-        // order_reference: order.reference,
-        // name: userStatus && userStatus.fullname ? userStatus.fullname : "",
-        // phone: userStatus && userStatus.phone ? userStatus.phone : "",
-        // email: userStatus && userStatus.email ? userStatus.email : "",
-        // paymentType: `Ship Order`,
-        // totalAmount: totalAmount,
-        // storehouse_billings: total_cost,
-        // shippingFee: shippingFee ? shippingFee : 0,
-        // salesTax: order.ordered_items.length * 10,
-        // billing_starts: bs,
-
         user_id: userStatus && userStatus.id ? userStatus.id : "",
         name: userStatus && userStatus.fullname ? userStatus.fullname : "",
         phone: userStatus && userStatus.phone ? userStatus.phone : "",
         email: userStatus && userStatus.email ? userStatus.email : "",
         paymentType: "Ship All Orders",
-        totalAmount: Math.round(shippingFee + salesTax + shipAllOrdersCharges),
+        totalAmount: Math.round(
+          shippingFee + salesTax2 + shipAllOrdersCharges2
+        ),
         shippingFee: shippingFee ? shippingFee : 0,
-        salesTax: salesTax ? salesTax : 0,
+        salesTax: salesTax2 ? salesTax2 : 0,
         storehouse_items: allOrderIdsArr,
       },
       publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEXTMODE_PUBLIC_KEY,
@@ -452,7 +511,7 @@ const Storehouse = () => {
                         // const msDays = 1000 * 60 * 60 * 24;
 
                         // for testing purposes
-                        const msDays = 1000 * 60 * 1.5;
+                        const msDays = 1000 * 60 * 2;
 
                         let atime = now - bsd;
 
